@@ -1,0 +1,79 @@
+\documentclass[normaalvormen.tex]{subfiles}
+\begin{document}
+
+\chapter{Generisch}
+\renewcommand\thesection{Vraag \arabic{section}}
+\renewcommand\thesubsection{V\arabic{section}}
+
+\section{Bepaal de sluiting van $X$ onder $F$: $X_{F}^{+}$}
+\subsection{Opgave}
+Gegeven zijn een attribuutverzameling $X = \{a_1,a_2,\cdot,a_n\}$ en een verzameling functionele afhankelijkheden $F=  \{f_1,f_2,\cdot,f_n\}$. Bepaal $X_{F}^{+}$
+\subsection{Antwoord}
+Ga \'e\'en voor \'e\'en de functionele afhankelijkheden in $F$ af. voeg steeds de rechterkant toe als de linkerkant al in je verzameling zit. Herhaal dit tot $X_{F}^{+}$ niet meer verandert.
+\begin{mdframed}
+\begin{algorithm}[H]
+$X_{F}^{+} \leftarrow X$\\
+\Repeat{$X_{F}^{+} = OLD$}{
+	$OLD \leftarrow X_{F}^{+}$\\
+	\ForEach{$f=Y\rightarrow Z \in F$}{
+		\If{$y\subseteq X_{F}^{+}$}{
+			$X_{F}^{+} = X_{F}^{+} \cup Z$	
+		}
+	}
+}
+\end{algorithm}
+\end{mdframed}
+
+
+\section{Bespreek de equivalentie van $E$ en $F$.}
+\subsection{Opgave}
+Gegeven zijn twee verzamelingen functionele afhankelijkheden $E$ en $F$. Bereken of $E$ $F$ overdekt, Bereken of $F$ $E$ overdekt en concludeer of $E$ en $F$ equivalent zijn.
+\subsection{Antwoord}
+Ga simpelweg alle functionele afhankelijkheden $X\rightarrow Y \in E$ af en controleer of $Y \subseteq X_{F}^{+}$.
+\begin{mdframed}
+\begin{algorithm}[H]
+\ForEach{$e = X\rightarrow Y \in E$}{
+	If{ $Y \not\subseteq X_{F}^{+}$}{
+		\Return{False}
+	}
+}
+\Return{True}
+\end{algorithm}
+\end{mdframed}
+
+\section{Bereken een minimale overdekking $G$ van $F$.}
+\subsection{Opgave}
+Gegeven een verzameling functionele afhankelijkheden $F= \{f_1,f_2,\cdots,f_n$. Bepaal een minimale overdekking $G$ van $F$.
+\subsection{Antwoord}
+Ontdubbel eerst de rechterkant van elke functionele afhankelijkheid in $F$. Ontdubbel daarna zoveel mogelijk de linkerkant van elke functionele afhankelijkheid. Let op, dit mag alleen als er dan geen informatie verloren gaat. Elimineer ten slotte alle redundante functionele afhankelijkheden.
+
+\begin{mdframed}
+\begin{algorithm}[H]
+$G = \emptyset$\\
+\tcc{Ontdubbel de rechterkanten.}
+\ForEach{$f = X\rightarrow A_1A_2\cdots A_n \ in F$}{
+	$G \leftarrow G \cup X\rightarrow A_1 \cup X\rightarrow A_2 \cup \cdots \cup X\rightarrow A_n$
+}
+
+\tcc{Ontdubbel zoveel mogelijk de linkerkanten.}
+\ForEach{$g = X_1 X_2 \cdots X_n \rightarrow A \in G$}{
+	\For{$i = 1 .. n$}{
+		$X' \leftarrow X_1 X_2\cdots X_{i-1} X_{i+1}\cdots X_{n}$\\
+		$G' \leftarrow G \setminus \{X \rightarrow A\} \cup \{X' \rightarrow  A\}$\\
+		\tcc{Enkel wanneer er geen informatie verloren gaat!}
+		\If{$X_i \in X_{G'}'^{+}$}{
+			$G \leftarrow G'$
+		}
+	}
+}
+\tcc{Elimineer redundante functionele afhankelijkheden.}
+\ForEach{$g = X\rightarrow A \in G$}{
+	$G' \leftarrow G\setminus \{X\rightarrow A\}$\\
+	\If{$A \in X_{G'}^{+}$}{
+		$G\leftarrow G'$	
+	}
+}
+\end{algorithm}
+\end{mdframed}
+
+\end{document}

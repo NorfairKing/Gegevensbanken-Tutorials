@@ -1,0 +1,151 @@
+\documentclass[normaalvormen.tex]{subfiles}
+\begin{document}
+
+\chapter{Voorbeeld}
+\section{Bepaal de sluiting van $X$ onder $F$: $X_{F}^{+}$}
+\subsection{Opgave}
+\[
+X_1 = \{A\}\text{, }
+X_2 = \{C\}\text{ en }
+X_3 = \{AC\}
+\]
+\[
+F = 
+\{
+  A\rightarrow B
+, C\rightarrow DE
+, AC \rightarrow F
+\}
+\]
+
+\subsection{Antwoord}
+\[
+X_1^{+} = \{A,B\}
+\]
+\[
+X_{2}^{+} = \{C,D,E\}
+\]
+\[
+X_{3}^{+} = \{A,B,C,D,E,F\}
+\]
+
+\section{Bespreek de equivalentie van $E$ en $F$}
+\subsection{Opgave}
+\[
+E = \{ A\rightarrow BC, D\rightarrow AE\}
+\]
+\[
+F = \{A\rightarrow B, AB\rightarrow C, D\rightarrow AC, D\rightarrow E
+\]
+
+\subsection{Antwoord}
+\begin{itemize}
+\item Overdekt $E$ $F$?
+\begin{itemize}
+\item $A \rightarrow BC$\\
+$BC \subseteq A_{F}^{+} = \{A,B,C\}$ OK
+\item $D\rightarrow AE$\\
+$AE \subseteq D_{F}^{+} = \{A,B,C,D,E\}$ OK
+\end{itemize}
+Dus $E$ overdekt $F$.
+\item Overdekt $F$ $E$?\\
+\begin{itemize}
+\item $A\rightarrow B$\\
+$B \subseteq A_{E}^{+} = \{A,B,C\}$ OK
+\item $AB\rightarrow C$\\
+$C \subseteq AB_{E}^{+} = \{A,B,C\}$ OK
+\item $D\rightarrow AC$\\
+$AC \subseteq D_{E}^{+} = \{A,B,C,D,E\}$ OK
+\item $D\rightarrow E$\\
+$E \subseteq D_{E}^{+} = \{A,B,C,D,E\}$ OK
+\end{itemize}
+Dus $F$ overdekt $E$.
+\item Zijn $E$ en $F$ equivalent?\\
+$E$ overdekt $F$ en $F$ overdekt $E$ dus $E$ en $F$ zijn equivalent.
+\end{itemize}
+
+\section{Bereken een minimale overdekking $G$ van $F$.}
+\subsection{Opgave}
+Zij $F$ een verzameling functionele afhankelijkheden. Geef een minimale overdekking $G$ van $F$.
+\[
+F = \{ B\rightarrow A, D\rightarrow A, AB \rightarrow D, H\rightarrow IJ\}
+\]
+\subsection{Antwoord}
+We voeren het beschreven algoritme uit, stap voor stap.
+\begin{enumerate}
+\item Ontdubbel de rechterkanten.\\
+Enkel $G \rightarrow GH$ kan ontdubbelt worden.
+\[
+G = \{ B\rightarrow A, D\rightarrow A, AB \rightarrow D, H\rightarrow I, H\rightarrow J\}
+\]
+\item Ontdubbel zo veel mogelijk de llinker kanten.\\
+Enkel $AB \rightarrow D$ kan ontdubbelt worden.
+\begin{itemize}
+\item Kunnen we $AB\rightarrow D$ vervangen door $A\rightarrow D$?
+Noem $G'$ de verzameling die we zouden bekomen.
+\[
+G' = \{ B\rightarrow A, D\rightarrow A, A \rightarrow D, H\rightarrow I, H\rightarrow J\}
+\]
+\[
+B \not\in A_{G'}^{+} \rightarrow \text{ vervanging niet mogelijk.}
+\]
+\item Kunnen we $AB\rightarrow D$ vervangen door $B\rightarrow D$?
+Noem $G'$ de verzameling die we zouden bekomen.
+\[
+G' = \{ B\rightarrow A, D\rightarrow A, B \rightarrow D, H\rightarrow I, H\rightarrow J\}
+\]
+\[
+A \in B_{G'}^{+} \rightarrow \text{ vervanging mogelijk.}
+\]
+\end{itemize}
+We vervangen $AB\rightarrow D$ dus door $B\rightarrow D$.
+\[
+G = \{ B\rightarrow A, D\rightarrow A, B \rightarrow D, H\rightarrow I, H\rightarrow J\}
+\]
+
+\item Ga alle $g\in G$ af en kijk na of ze redundant zijn. Verwijder indien mogelijk.
+\begin{itemize}
+\item $B\rightarrow A$\\
+Zonder $B\rightarrow A$ zou $G$ $G'$ zijn.
+\[
+G' = \{D\rightarrow A, B\rightarrow D, H\rightarrow I, H\rightarrow J
+\] 
+\[
+A \in B_{G'}^{+} = \{A,B,D\} \rightarrow \text{ Weglating OK }
+\]
+\item $D\rightarrow A$
+\[
+G' = \{B\rightarrow D, H\rightarrow I, H\rightarrow J
+\]
+\[
+A \not\in D_{G'}^{+} = \{D\} \rightarrow \text{ Weglating niet OK }
+\]
+\item $B\rightarrow D$
+\[
+G' = \{D\rightarrow A, H\rightarrow I, H\rightarrow J
+\]
+\[
+D \not\in B_{G'}^{+} = \{B\} \rightarrow \text{ Weglating niet OK }
+\]
+\item $H\rightarrow I$
+\[
+G = \{D\rightarrow A, B \rightarrow D, H\rightarrow J\}
+\]
+\[
+I \not\in H_{G'}^{+} = \{H,J\} \rightarrow \text{ Weglating niet OK }
+\]
+\item $H\rightarrow J$
+\[
+G = \{D\rightarrow A, B \rightarrow D, H\rightarrow I\}
+\]
+\[
+J \not\in H_{G'}^{+} = \{H,I\} \rightarrow \text{ Weglating niet OK }
+\]
+\end{itemize}
+\end{enumerate}
+Het resultaat is volgende verzameling $G$.
+\[
+G = \{D\rightarrow A, B \rightarrow D, H\rightarrow I, H\rightarrow J\}
+\]
+
+\end{document}

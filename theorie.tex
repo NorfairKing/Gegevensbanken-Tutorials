@@ -15,16 +15,51 @@
 
 \section{Functionele afhankelijkheden (functional dependencies)}
 \begin{de}
-Zij  $X$ en $Y$ attributenverzamelingen. $Y$ is functioneel afhankelijk $X$ als vanuit de waarden van $X$ de waarden van $Y$ deterministisch bepaald kunnen worden.
+Zij  $X$ en $Y$ attributenverzamelingen. $Y$ is \textbf{functioneel afhankelijk} $X$ als vanuit de waarden van $X$ de waarden van $Y$ deterministisch bepaald kunnen worden.
 \[
 X\rightarrow Y
 \]
 \end{de}
 \begin{de}
-De sluiting van een verzameling van attributen $X$ onder een verzameling functionele afhankelijkheden $X_{F}^+$ is de verzameling van alle attribuutverzamelingen die functioneel afhankelijk zijn van $X$
+Een functionele afhankelijkheid $X\rightarrow Y$ is \textbf{partieel} als er een kleinere deelverzameling $Z$ bestaat van $X$ ($Z\subset X$) zodat Y functioneel afhankelijk is van $Z$. ($Z\rightarrow Y$)
+\end{de}
+\begin{de}
+Een functionele afhankelijkheid noemen we \textbf{volledig} wanneer ze niet partieel is.
+\end{de}
+\begin{de}
+Een functionele afhankelijkheid $X\rightarrow Y$ is \textbf{triviaal} wanneer $Y$ een deel is van $X$.
+\[
+Y \subseteq X
+\]
+\end{de}
+\begin{de}
+De \textbf{sluiting van een verzameling van attributen} $X$ onder een verzameling functionele afhankelijkheden $X_{F}^+$ is de verzameling van alle attribuutverzamelingen die functioneel afhankelijk zijn van $X$
 \[
 X_{F}^{+} = \{\ Y\ |\ X\rightarrow Y\ \}
 \]
+\end{de}
+\begin{de}
+Een verzameling functionele afhankelijkheden $E$ \textbf{overdekt} een andere verzameling functionele afhankelijkheden $F$ als voor elke $e = X\rightarrow Y$ geldt dat $Y \subseteq X_{F}^{+}$
+\end{de}
+\begin{de}
+We spreken van \textbf{equivaltente verzamelingen} $E$ en $F$ van \textbf{functionele afhankelijkheden} als zowel $E$ $F$ overdekt, als $F$ $E$ overdekt.
+\end{de}
+\begin{de}
+Een verzameling functionele afhankelijkheden is minimaal als en slechts als er geen equivalente verzameling $G$ te vormen valt door  ...
+\begin{itemize}
+\item een afhankelijkheid uit $F$.
+\item een attribuut uit de rechterkant van een afhankelijkheid uit $F$.
+\item een attribuut uit de linkerkant van een afhankelijkheid uit $F$.
+\end{itemize}
+\end{de}
+\begin{de}
+Een functionele afhankelijkheid $X\rightarrow Y$ in een relatieschema $S_{R} = (U,F)$ is \textbf{transitief} als en slechts als er een $Z$ bestaat zodat aan volgende voorwaarden voldaan is.
+\begin{itemize}
+\item $Z$ is volledig en niet-triviaal afhankelijk van $X$
+\item $Z$ is geen deelverzameling van een kandidaatsleutel voor $R$
+\item $Y$ is niet-triviaal functioneel afhankelijk van $Z$.
+\end{itemize}
+\emph{In mensentaal: $X\rightarrow Y$ is een transitieve functionele afhankelijheid als er nog een $Z$ tussen past. ($X\rightarrow Z\rightarrow Y$}
 \end{de}
 \subsection{Afleidingsregels}
 \begin{reg} \textbf{Reflexiviteit}
@@ -58,15 +93,41 @@ Y \subseteq X \Rightarrow X \rightarrow Y
 \]
 \end{reg}
 
-
 \section{Sleutels}
+\begin{de}
+Een verzameling attributen $K$ is een \textbf{supersleutel} voor een relatie $R$ met schema $S_{R} = (U,F)$ als en slechts als $K$ elk attribuut in $U$ determineert.
+\[
+K_{F}^{+} = U
+\]
+\end{de}
+\begin{de}
+Een verzameling attributen $K$ is een \textbf{(kandidaat)sleutel}  voor een relatie $R$ met schema $S_{R} = (U,F)$ als en slechts als $K$ een supersleutel is en er geen kleinere deelverzameling van $K$ een supersleutel is voor $R$.
+\end{de}
+\begin{de}
+Een attribuut $A$ is een sleutelattribuut voor een relatie $R$ met schema $S_{R} = (U,F)$ als en slecht als er een sleutel $K$ voor $R$ bestaat waar $A$ in zit.
+\end{de}
+\section{Normaalvormen}
+\begin{de}
+Elk relatieschema is in \textbf{nulde normaalvorm (NF0)}. Er zijn geen voorwaarden opgelegd aan de attributen of functionele afhankelijkheden.
+\end{de}
+\begin{de}
+Een relatieschema $S_{R} = (U,F)$ is in \textbf{eerste normaalvorm (NF1)} als en slechts als het domein van elk attribuut in $U$ enkelvoudig is.
+\end{de}
+\begin{de}
+Een relatieschema $S_{R} = (U,F)$ is in \textbf{tweede normaalvorm (NF2)} als en slechts als voor elk niet-sleutelattribuut $A \in U$ geldt dat $A$ partieel functioneel afhankgelijk is van een kandidaatsleutel van $R$.
+\emph{In mensentaal: ``Voor elk niet-sleutel-attribuut moet de hele primaire sleutel nodig zijn om het te determineren.''}
+\end{de}
+\begin{de}
+Een relatieschema $S_{R} = (U,F)$ is in \textbf{derde normaalvorm (NF3)} als en slechts als volgende implicatie geldt voor elke niet-triviale functionele afhankelijkheid $X\rightarrow A$.
+\[
+A \text{ is een niet-sleutel-attribuut } \Rightarrow X \text{ is een supersletel voor R}
+\]
+\emph{In mensentaal: Niet-sleutel-attributen zijn enkel afhankelijk van supersleutels.}
+\end{de}
+\begin{de}
+Een relatieschema $S_{R} = (U,F)$ is in \textbf{Boyce-Codd normaalvorm (BCNF)} als en slechts als geen enkel sleutelattribuut van $U$ partieel of transitief functioneel afhankelijk is van een kandidaatsleutel van $R$.
+\emph{In mensentaal: Supersleutels zijn onafhankelijk.}
+\end{de}
 
-\section{Nulde normaalvorm: NF0}
-\section{Eerste normaalvorm: NF1}
-\section{Tweede normaalvorm: NF2}
-\section{Derde normaalvorm: NF3}
-\section{Boyce-Codd normaalvorm: BNCF}
-\section{Vierde normaalvorm: NF4}
-\section{Vijfde normaalvorm: NF5}
 
 \end{document}
