@@ -1,2 +1,8 @@
 * Gegevensbanken-Tutorials
 Tutorials voor Gegevensbanken [H01O9A]
+** Inhoud
+   - [[http://intexration.jonasdevlieghere.com:8000/pdf/NorfairKing/Gegevensbanken-Tutorials/normaalvormen][Normaalvormen]]
+
+** PDF
+   Omdat niet iedereen zin heeft om de repository te clonen en de pdf zelf te compileren is er InTeXgration toegevoegd aan dit project.
+   Bedankt, Jonas Devlieghere, voor de toegang!
