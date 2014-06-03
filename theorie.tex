@@ -1,0 +1,72 @@
+\documentclass[normaalvormen.tex]{subfiles}
+\begin{document}
+\chapter{Theorie}
+\section{Informele richtlijnen}
+\begin{enumerate}
+\item Ontwerp een relatieschema zo dat zijn betekenis gemakkelijk verklaard kan worden.
+
+\item Ontwerp een relatieschema zo dat redundantie vermeden wordt en geen toevoeg-, weglaat- of wijziging-anomalie\"en kunnen voorkomen.
+
+\item Vermijd zoveel mogelijk attributen waarvan de waarden nul kunnen zijn.
+
+\item Ontwerp relatieschema's zo dat ze na een equi-join op attributen die primaire of verwijssleutels zijn, geen onechte tupels opleveren.
+\end{enumerate}
+
+
+\section{Functionele afhankelijkheden (functional dependencies)}
+\begin{de}
+Zij  $X$ en $Y$ attributenverzamelingen. $Y$ is functioneel afhankelijk $X$ als vanuit de waarden van $X$ de waarden van $Y$ deterministisch bepaald kunnen worden.
+\[
+X\rightarrow Y
+\]
+\end{de}
+\begin{de}
+De sluiting van een verzameling van attributen $X$ onder een verzameling functionele afhankelijkheden $X_{F}^+$ is de verzameling van alle attribuutverzamelingen die functioneel afhankelijk zijn van $X$
+\[
+X_{F}^{+} = \{\ Y\ |\ X\rightarrow Y\ \}
+\]
+\end{de}
+\subsection{Afleidingsregels}
+\begin{reg} \textbf{Reflexiviteit}
+\[
+Y \subseteq X \Rightarrow X \rightarrow Y
+\]
+\end{reg}
+\begin{reg} \textbf{Uitbreiding}
+\[
+\{X \rightarrow Y\} \models XZ \rightarrow YZ
+\]
+\end{reg}
+\begin{reg} \textbf{Transitiviteit}
+\[
+\{X \rightarrow Y, Y \rightarrow Z\} \models X \rightarrow Z
+\]
+\end{reg} 
+\begin{reg}\textbf{Decompositie}
+\[
+\{X \rightarrow YZ\} \models X \rightarrow Y
+\]
+\end{reg}
+\begin{reg} \textbf{Vereniging}
+\[
+\{X\rightarrow Y, X\rightarrow Z \} \models X\rightarrow YZ
+\]
+\end{reg}
+\begin{reg} \textbf{Pseudo-Transitiviteit}
+\[
+\{ X\rightarrow Y, WY \rightarrow Z \} \models WX\rightarrow Z
+\]
+\end{reg}
+
+
+\section{Sleutels}
+
+\section{Nulde normaalvorm: NF0}
+\section{Eerste normaalvorm: NF1}
+\section{Tweede normaalvorm: NF2}
+\section{Derde normaalvorm: NF3}
+\section{Boyce-Codd normaalvorm: BNCF}
+\section{Vierde normaalvorm: NF4}
+\section{Vijfde normaalvorm: NF5}
+
+\end{document}

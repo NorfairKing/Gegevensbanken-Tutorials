@@ -1,0 +1,68 @@
+\documentclass[10pt,a4paper,oneside]{report}
+\usepackage[latin1]{inputenc}
+\usepackage[dutch]{babel}
+
+
+\input{packages}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[chapter] %Reset counter elk hoofdstuk
+
+\theoremstyle{definition}
+\newmdtheoremenv{de}[thm]{Definitie} % Definitie met frame
+\newtheorem{ei}[thm]{Eigenschap}
+\newtheorem{st}[thm]{Stelling}
+\newtheorem{gev}[thm]{Gevolg}
+\newtheorem{reg}[thm]{Regel}
+
+\begin{document}
+\input{titelpagina}
+
+\subfile{voorwoord}
+\tableofcontents
+\pagebreak
+
+
+%\nocite{tmi}
+%\bibliographystyle{plain}
+%\bibliography{computergesteund_ontwerp_van_curven_en_oppervlakken}
+
+
+\section*{Voorkennis}
+\begin{itemize}
+\item Eerste orde formele logica.
+\end{itemize}
+
+\subfile{theorie}
+
+\chapter{Generisch}
+\renewcommand\thesection{Vraag \arabic{section}}
+\renewcommand\thesubsection{V \arabic{section}}
+\section{Bepaal de sluiting van $X$ onder $F$: $X_{F}^{+}$}
+\subsection{Opgave}
+Gegeven zijn een attribuutverzameling $X = \{a_1,a_2,\cdot,a_n\}$ en een verzameling functionele afhankelijkheden $F=  \{f_1,f_2,\cdot,f_n\}$.
+\subsection{Antwoord}
+
+\chapter{Voorbeeld}
+\section{Bepaal de sluiting van $X$ onder $F$: $X_{F}^{+}$}
+\subsection{Opgave}
+\[
+X1 = \{A\}
+X2 = \{C\}
+X3 = \{AC\}
+\]
+\[
+F = 
+\{
+  A\rightarrow B
+, C\rightarrow DE
+, AC \rightarrow F
+\}
+\]
+
+\subsection{Antwoord}
+\[
+\]
+
+
+\end{document}
