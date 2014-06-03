@@ -2,13 +2,13 @@
 \begin{document}
 
 \chapter{Generisch}
-\renewcommand\thesection{Vraag \arabic{section}}
+\renewcommand\thesection{V\arabic{section}}
 \renewcommand\thesubsection{V\arabic{section}}
 
 \section{Bepaal de sluiting van $X$ onder $F$: $X_{F}^{+}$}
-\subsection{Opgave}
+\subsection*{Opgave}
 Gegeven zijn een attribuutverzameling $X = \{a_1,a_2,\cdot,a_n\}$ en een verzameling functionele afhankelijkheden $F=  \{f_1,f_2,\cdot,f_n\}$. Bepaal $X_{F}^{+}$
-\subsection{Antwoord}
+\subsection*{Antwoord}
 Ga \'e\'en voor \'e\'en de functionele afhankelijkheden in $F$ af. voeg steeds de rechterkant toe als de linkerkant al in je verzameling zit. Herhaal dit tot $X_{F}^{+}$ niet meer verandert.
 \begin{mdframed}
 \begin{algorithm}[H]
@@ -26,9 +26,9 @@ $X_{F}^{+} \leftarrow X$\\
 
 
 \section{Bespreek de equivalentie van $E$ en $F$.}
-\subsection{Opgave}
+\subsection*{Opgave}
 Gegeven zijn twee verzamelingen functionele afhankelijkheden $E$ en $F$. Bereken of $E$ $F$ overdekt, Bereken of $F$ $E$ overdekt en concludeer of $E$ en $F$ equivalent zijn.
-\subsection{Antwoord}
+\subsection*{Antwoord}
 Ga simpelweg alle functionele afhankelijkheden $X\rightarrow Y \in E$ af en controleer of $Y \subseteq X_{F}^{+}$.
 \begin{mdframed}
 \begin{algorithm}[H]
@@ -42,9 +42,9 @@ Ga simpelweg alle functionele afhankelijkheden $X\rightarrow Y \in E$ af en cont
 \end{mdframed}
 
 \section{Bereken een minimale overdekking $G$ van $F$.}
-\subsection{Opgave}
+\subsection*{Opgave}
 Gegeven een verzameling functionele afhankelijkheden $F= \{f_1,f_2,\cdots,f_n$. Bepaal een minimale overdekking $G$ van $F$.
-\subsection{Antwoord}
+\subsection*{Antwoord}
 Ontdubbel eerst de rechterkant van elke functionele afhankelijkheid in $F$. Ontdubbel daarna zoveel mogelijk de linkerkant van elke functionele afhankelijkheid. Let op, dit mag alleen als er dan geen informatie verloren gaat. Elimineer ten slotte alle redundante functionele afhankelijkheden.
 
 \begin{mdframed}
@@ -75,5 +75,68 @@ $G = \emptyset$\\
 }
 \end{algorithm}
 \end{mdframed}
+
+\section{Bepaal een sleutel voor deze relatie}
+\subsection*{Opgave}
+Gegeven een relatie $R$ in tabelvorm. Bepaal een sleutel voor $R$.
+Geef eventueel de mogelijke supersleutels.
+\begin{figure}
+\centering
+\[
+\begin{array}{c|c|c|c}
+U_1 & U_2 & \cdots & U_n\\\hline
+u_{11} & u_{12} & \cdots & u_{1n}\\
+u_{21} & u_{22} & \cdots & u_{2n}\\
+\vdots & \vdots & \ddots & \vdots\\
+u_{m1} & u_{m2} & \cdots & u_{mn}
+\end{array}
+\]
+\end{figure}
+
+\subsection*{Antwoord}
+Bekijk de tabel en probeer functionele afhankelijkheden te zien. Een supersleutel heeft enkel unieke tupels. Zoek uit de verzameling van supersleutels die met het kleinste aantal elementen.
+
+\section{In welke normaalvorm staat dit relatieschema?}
+\subsection*{Opgave}
+Gegeven een relatieschema $S_{R} = (U,F)$. Bepaal in welke normaalvorm deze relatie staat. Uiteraard word er de hoogst mogelijk normaalvorm bedoeld.
+\subsection*{Antwoord}
+Ga \'e\'en voor \'e\'en de normaalvormen af. Zodra het relatieschema niet voldoet aan \'e\'en van de voorwaarden stopt u. Noem deze iterate de $(i+1)$-ste. Het relatieschema $S_{R}$ staat dan in $i$-de normaalvorm.
+
+\section{Normaliseer zo ver mogelijk.}
+\subsection*{Opgave}
+Gegeven een relatieschema $S_{R} = (U,F)$. Normaliseer $S_{R}$ zo ver mogelijk.
+\subsection*{Antwoord}
+Begin bij de eerste normaalvorm. Breng het relatieschema subsequent  in een volgende normaalvorm indien mogelijk.
+
+\subsubsection*{NF0 $\rightarrow$ NF1}
+Omzetten naar een relatieschema in eerste normaalvorm kan altijd.
+\begin{enumerate}
+\item Splits elk samengesteld attribuut op in meerdere attributen
+\item Voorzie voor elk meerwaardig attribuut ofwel meerdere tupels, of wel een nieuwe relatie met dezelfde sleutel.
+\end{enumerate}
+
+\subsubsection*{NF1 $\rightarrow$ NF2}
+Omzetten naar een relatieschema in tweede normaalvorm kan ook altijd. Voor elk attribuut $A$ dat partieel functioneel afhankelijk is van een kandidaatsleutel $K$
+\begin{enumerate}
+\item Zoek een subset $K'$ van $K$ waarvan $A$ volledig functioneel afhankelijk is.
+\item Verwijder $A$ uit $U$
+\item Maak een nieuw relatieschema $S'_{R_{2}}(U',F)$.
+\[
+U' = K'\cup A
+\] 
+\end{enumerate}
+
+\subsubsection*{NF2 $\rightarrow$ NF3}
+Omzetten naar een relatieschema in derde normaalvorm kan nog steeds altijd. Voor elk niet-sleutelattribuut $A$ dat transitief functioneel afhankelijk is van een kandidaatsleutel via $Z$
+\begin{enumerate}
+\item Elimineer $A$ uit $U$
+\item Maak een nieuw relatieschema $S_{R_{3}}(U',F)$.
+\[
+U' = Z \cup A
+\]
+\end{enumerate}
+
+\subsubsection*{NF3 $\rightarrow$ BCNF}
+Omzetten naar een relatieschema in BCNF is niet altijd mogelijk zonder extra problemen te veroorzaken.
 
 \end{document}

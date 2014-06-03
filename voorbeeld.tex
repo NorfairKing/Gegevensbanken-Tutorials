@@ -3,7 +3,7 @@
 
 \chapter{Voorbeeld}
 \section{Bepaal de sluiting van $X$ onder $F$: $X_{F}^{+}$}
-\subsection{Opgave}
+\subsection*{Opgave}
 \[
 X_1 = \{A\}\text{, }
 X_2 = \{C\}\text{ en }
@@ -18,7 +18,7 @@ F =
 \}
 \]
 
-\subsection{Antwoord}
+\subsection*{Antwoord}
 \[
 X_1^{+} = \{A,B\}
 \]
@@ -30,7 +30,7 @@ X_{3}^{+} = \{A,B,C,D,E,F\}
 \]
 
 \section{Bespreek de equivalentie van $E$ en $F$}
-\subsection{Opgave}
+\subsection*{Opgave}
 \[
 E = \{ A\rightarrow BC, D\rightarrow AE\}
 \]
@@ -38,7 +38,7 @@ E = \{ A\rightarrow BC, D\rightarrow AE\}
 F = \{A\rightarrow B, AB\rightarrow C, D\rightarrow AC, D\rightarrow E
 \]
 
-\subsection{Antwoord}
+\subsection*{Antwoord}
 \begin{itemize}
 \item Overdekt $E$ $F$?
 \begin{itemize}
@@ -65,12 +65,12 @@ $E$ overdekt $F$ en $F$ overdekt $E$ dus $E$ en $F$ zijn equivalent.
 \end{itemize}
 
 \section{Bereken een minimale overdekking $G$ van $F$.}
-\subsection{Opgave}
+\subsection*{Opgave}
 Zij $F$ een verzameling functionele afhankelijkheden. Geef een minimale overdekking $G$ van $F$.
 \[
 F = \{ B\rightarrow A, D\rightarrow A, AB \rightarrow D, H\rightarrow IJ\}
 \]
-\subsection{Antwoord}
+\subsection*{Antwoord}
 We voeren het beschreven algoritme uit, stap voor stap.
 \begin{enumerate}
 \item Ontdubbel de rechterkanten.\\
@@ -148,4 +148,72 @@ Het resultaat is volgende verzameling $G$.
 G = \{D\rightarrow A, B \rightarrow D, H\rightarrow I, H\rightarrow J\}
 \]
 
+\section{Bepaal een sleutel voor deze relatie}
+\subsection*{Opgave}
+Gegeven een relatie $R$ in tabelvorm. Bepaal een sleutel voor $R$.
+Geef eventueel de mogelijke supersleutels.+
+\begin{figure}
+\centering
+DEPARTMENT\\
+\begin{tabular}{c|c|c|c}
+Dname & Dnumber & Dmgr\_ssn & Dlocations\\\hline
+Research &5 & 46871761546 & \{Bellaire, Sugarland, Houston\}\\
+Administration & 4& 76947981465 & \{Stafford\}\\
+Headquarters & 1 & 67469498416 & \{Houston\}
+\end{tabular}
+\end{figure}
+
+\section{In welke normaalvorm staat dit relatieschema?}
+\subsection*{Opgave}
+\[
+S_{R} = (U,F)
+\]
+\[
+U = \{\underline{A};\underline{B},C,D\}
+\]
+\[
+F = \{AB\rightarrow CD, C \rightarrow B\}
+\]
+
+\subsection*{Antwoord}
+In dit schema zijn $A$ en $B$ sleutelattributen van de primaire sleutel $AB$.
+\begin{enumerate}
+\item Het schema staat in eerste normaalvorm. We weten eigenlijk niets van meervourdige of samengestelde attributen in dit geval, maar we gaan er van uit dat er niet in dit schema zitten.
+
+\item Het schema staat in tweede normaalvorm. Voor elk niet-sleutel-attribuut moet de hele primaire sleutel nodig zijn om te determineren. Inderdaad, $C$ en $D$ zijn niet-sleutel attributen en deze zijn beide functioneel afhankelijk van $AB$.
+
+\item Het schema staat in derde normaalvorm. De niet-sleutel-attributen zijn namelijk enkel afhankelijk van supersleutels. Inderdaad, $C$ en $D$ zijn enkel afhankelijk van de supersleutel $AB$.
+
+\item Het schema staat niet in de Boyce-Codd normaalvorm. De supersleutels zijn namelijk niet onafhankelijk. $B$ is namelijk functioneel afhankelijk van $C$.
+\end{enumerate}
+
+\section{Normaliseer zo ver mogelijk.}
+\subsection*{Opgave}
+\[
+U = \{\underline{A},B,C,D,E,F\}
+\]
+\[
+F = \{A\rightarrow BCDEF , BC\rightarrow ADEF, B\rightarrow F, D\rightarrow E\}
+\]
+In dit schema is $A$ de sleutel en is $BC$ een kandidaatsleutel.
+
+\subsection*{Antwoord}
+\begin{enumerate}
+\item Het schema staat al in eerste normaalvorm. Opnieuw gaan we hiervan uit.
+
+\item Om het schema in tweede normaalvorm te brengen moet er een opsplitsing gemaakt worden. $F$ is volledig functioneel afhankelijk van $B$ terwijl $B$ een deel is van een kandidaatsleutel.
+\[
+U_{1} = \{\underline{A},B,C,D,E\}\text{ en } U_{2} = \{BF\}
+\]
+\[
+F_{1} = \{A\rightarrow BCDEF , BC\rightarrow ADEF, D\rightarrow E\} \text{ en } F_{2} = \{B\rightarrow F\}
+\]
+\item Om het schema in derde normaalvorm te krijgen moeten we het nog eens opsplitsen. $E$ is namelijk een niet-sleutelattribuut dat transitief functioneel afhankelijk is van de kandidaatsleutel via $D$.
+\[
+U_{1} = \{\underline{A},B,C,D\}\text{ en } U_{2} = \{BF\} \text{ en } U_3 = \{D,E\}
+\]
+\[
+F_{1} = \{A\rightarrow BCDEF , BC\rightarrow ADEF\} \text{ en } F_{2} = \{B\rightarrow F\} \text{ en } F_{3} = \{D\rightarrow E\}
+\]
+\end{enumerate}
 \end{document}
