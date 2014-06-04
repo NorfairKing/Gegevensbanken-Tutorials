@@ -1,0 +1,32 @@
+\documentclass[10pt,a4paper,oneside]{report}
+\usepackage[latin1]{inputenc}
+\usepackage[dutch]{babel}
+
+
+\input{packages}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section] %Reset counter elke sectie
+
+\theoremstyle{definition}
+\newmdtheoremenv{de}[thm]{Definitie} % Definitie met frame
+\newtheorem{ei}[thm]{Eigenschap}
+\newtheorem{st}[thm]{Stelling}
+\newtheorem{gev}[thm]{Gevolg}
+\newtheorem{reg}{Regel}
+
+\begin{document}
+\input{titelpagina}
+
+\subfile{voorwoord}
+\tableofcontents
+\pagebreak
+
+\subfile{theorie}
+\subfile{generisch}
+\subfile{voorbeeld}
+
+
+
+
+\end{document}
