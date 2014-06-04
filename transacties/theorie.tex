@@ -2,5 +2,210 @@
 \begin{document}
 \chapter{Theorie}
 
+\section{Transacties (Transactions)}
+\begin{de}
+Een transactie $T$ is de uitvoering van een programma dat de gegevensbank raadpleegt of haar inhoud wijzigt.
+\end{de}
+
+\begin{de}
+We spreken van een \textbf{verloren aanpassing} (lost modification) wanneer een wijziging door een transactie $T_1$ teniet gedaan wordt door een andere transactie $T_2$.
+\end{de}
+
+\begin{de}
+Een \textbf{foute lezing door tijdelijke aanpassing} (dirty read) vindt plaats wanneer een transactie $T_1$ een waarde gebruikt (het resultaat van een andere transactie $T_2$) die ondertussen niet meer geldig is.
+\end{de}
+
+\begin{de}
+Een \textbf{niet herhaalbare lezing} (nonrepeatable read) vindt plaats wanneer een waarde gelezen wordt en daarna wordt aangepast. zodat de originele waarde niet opnieuw te lezen valt.
+\end{de}
+
+\begin{de}
+De \textbf{ideale transactie} voldoet aan vier belangrijke eigenschappen. (ACID)
+\begin{enumerate}
+\item \textbf{Ondeelbaarheid (atomicity)}
+\item \textbf{Consistentie behoudbaarheid (consistency presercation)}\\
+\item \textbf{Isolatie (Isolation)}
+\item \textbf{Duurzaamheid (Durability)}
+\end{enumerate}
+\end{de}
+
+\section{Transactieroosters (Schedules}
+\begin{de}
+Een \textbf{transactierooster} (schedule) is een tabel van operaties, in chronologische volgorde voor meerdere transacties. In de kolommen staan chronologisch de operaties van \'e\'en transactie.
+\end{de}
+Voorbeeld:
+\[
+\begin{array}{c|c}
+T_1 & T_2\\
+\hline
+o_1 & \\
+& o_2\\
+o_3&\\
+o_4&\\
+& o_5\\
+\end{array}
+\]
+In deze tekst gaan we ervan uit dat operaties niet tegelijkertijd uitgevoerd worden.
+
+
+\begin{de}
+We noemen twee operaties \textbf{conflicterend} (conflicting) als... :
+\begin{itemize}
+\item ze bij verschillende transacties horen.
+\item ze hetzelfde gegevenselement gebruiken.
+\item minstens \'e\'en ervan een schrijfoperatie is.
+\end{itemize}
+\end{de}
+
+\begin{de}
+We noemen een rooster $S$ voor $n$ interacties $T_i$ \textbf{volledig} als... :
+\begin{itemize}
+\item $S$ alle operaties van alle transacties $T_i$ bevat, alsook een commit- of abort-operatie op het einde van de transactie.
+\item elk paar operaties van elke transactie $T_i$ in dezelfde volgorde voorkomt in $S$ als in $T_i$
+\item de volgorde van elk paar conflicterende operaties eenduidig vast ligt.
+\end{itemize}
+\end{de}
+
+\subsection{Herstelbaarheid}
+\begin{de}
+Een rooster is \textbf{herstelbaar} als en slecht als een transactie die gecommit is nooit meer ongedaan gemaakt moet worden.
+Dit houd in dat geen enkele transactie $T$ in $S$ commit voordat alle transacties $T'$ die iets geschreven hebben dat $T$ leest hebben gecommit. 
+\end{de}
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c}
+\multicolumn{2}{c}{Herstelbaar}\\
+$T_1$&$T_2$\\
+\hline
+read(A) &\\
+& read(A)\\
+write(A)&\\
+read(B)&\\
+write(B)&\\
+&write(A)\\
+&commit\\
+commit&
+\end{tabular}
+\begin{tabular}{c|c}
+\multicolumn{2}{c}{Niet herstelbaar}\\
+$T_1$&$T_2$\\
+\hline
+read(A) &\\
+write(A)&\\
+& read(A)\\
+read(B)&\\
+&write(A)\\
+&commit\\
+abort&
+\end{tabular}
+\begin{tabular}{c|c}
+\multicolumn{2}{c}{Herstelbaar}\\
+$T_1$&$T_2$\\
+\hline
+read(A) &\\
+write(A)&\\
+& read(A)\\
+read(B)&\\
+&write(A)\\
+write(B)&\\
+commit&\\
+&commit\\
+\end{tabular}
+\begin{tabular}{c|c}
+\multicolumn{2}{c}{Herstelbaar}\\
+$T_1$&$T_2$\\
+\hline
+read(A) &\\
+write(A)&\\
+& read(A)\\
+read(B)&\\
+&write(A)\\
+write(B)&\\
+abort&\\
+&abort\\
+\end{tabular}
+\end{figure}
+
+\subsection{Cascadeloosheid}
+\begin{de}
+Een rooster $S$ is \textbf{cascadeloos} wanneer elke transactie $T$ enkel waarden leest die geschreven zijn door transacties die al gecommit zijn.
+\end{de}
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c}
+\multicolumn{2}{c}{Cascadeloos}\\
+$T_1$&$T_2$\\
+\hline
+read(A) &\\
+& read(A)\\
+write(A)&\\
+read(B)&\\
+write(B)&\\
+&write(A)\\
+&commit\\
+commit&
+\end{tabular}
+\begin{tabular}{c|c}
+\multicolumn{2}{c}{Niet cascadeloos}\\
+$T_1$&$T_2$\\
+\hline
+read(A) &\\
+write(A)&\\
+& read(A)\\
+read(B)&\\
+&write(A)\\
+write(B)&\\
+commit&\\
+&commit\\
+\end{tabular}
+\end{figure}
+\begin{ei}
+Elk cascadeloos transactierooster is herstelbaar.
+\end{ei}
+
+\subsection{Strictheid}
+\begin{de}
+Een rooster $S$ is \textbf{strict} wanneer elke transactie $T$ enkel waarden leest en/of schrijft na de commit van de laatste transactie die dat item geschreven heeft.
+\end{de}
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c}
+\multicolumn{2}{c}{Niet strict}\\
+$T_1$&$T_2$\\
+\hline
+read(A) &\\
+& read(A)\\
+write(A)&\\
+read(B)&\\
+write(B)&\\
+&write(A)\\
+&commit\\
+commit&
+\end{tabular}
+\begin{tabular}{c|c}
+\multicolumn{2}{c}{Strict}\\
+$T_1$&$T_2$\\
+\hline
+& read(A)\\
+read(B)&\\
+write(B)&\\
+& write(A)\\
+&commit\\
+read(A)&\\
+write(A)&\\
+commit&
+\end{tabular}
+\end{figure}
+\begin{ei}
+Elk strict transactierooster is cascadeloos (en dus ook herstelbaar).
+\end{ei}
+
+\section{Serialisatie}
+\begin{de}
+Een rooster is \textbf{serieel} is een rooster waarin elke transactie afgemaakt wordt voor er aan een volgende wordt begonnen.
+\end{de}
+\begin{de}
+Een rooster is \textbf{serialiseerbaar} als en slechts als het equivalent is met een serieel rooster met dezelfde transacties.
+\end{de}
 
 \end{document}

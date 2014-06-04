@@ -1,9 +1,74 @@
-\documentclass[linear_hashing.tex]{subfiles}
+\documentclass[transacties.tex]{subfiles}
 \begin{document}
 
 \chapter{Voorbeeld}
-\section{vraag\_1}
+
+\section{Is dit transactierooster herstelbaar?}
 \subsection*{Opgave}
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c|c}
+$T_1$ & $T_2$ & $T_3$\\
+\hline
+read(A) &&\\
+&read(A)&\\
+&&read(A)\\
+read(B)&&\\
+&write(A)&\\
+&&read(B)\\
+&&write(B)\\
+write(B)&&\\
+&commit&\\
+&&commit\\
+commit&&\\
+\end{tabular}
+\end{figure}
+
+
+\subsection*{Antwoord}
+\subsubsection*{Schrijven}
+\begin{itemize}
+\item $T_2$ schrijft naar $A$.
+\item $T_1$ en $T_3$ schrijven naar $B$.
+\end{itemize}
+\subsubsection*{Lezen}
+\begin{itemize}
+\item $T_1$,$T_2$ en $T_3$ lezen van $A$ 
+\item $T_1$ en $T_3$ lezen van $B$
+\end{itemize}
+\subsubsection*{Checks}
+\begin{itemize}
+\item $T_1$:
+\begin{itemize}
+\item $T_2$ schrijft naar $A$ en $T_1$ leest $A$\\
+$T_2$ moet v\'o\'or $T_1$ comitten. $\rightarrow$ OK
+\item $T_3$ schrijft naar $B$ en $T_1$ leest $B$.\\
+$T_3$ moet v\'o\'or $T_1$ comitten. $\rightarrow$ OK
+\end{itemize}
+
+\item $T_2$ leest van $A$ maar geen andere transactie schrijft naar $A$. $\rightarrow$ OK
+
+\item $T_3$
+\begin{itemize}
+\item $T_1$ schrijft naar $B$ en $T_3$ leest $B$.\\
+$T_1$ moet v\'o\'or $T_3$ comitten. $\rightarrow$ NOK
+\item $T_2$ schrijft naar $A$ en $T_3$ leest $A$.\\
+$T_2$ moet v\'o\'or $T_3$ comitten. $\rightarrow$ OK
+\end{itemize}
+\end{itemize}
+\subsubsection*{Conclusie}
+\'E\'en van de tests slaagde niet. Dit rooster is dus niet herstelbaar.
+
+
+% Examenvraag
+\section{Timestamp ordering}
+\subsection*{Opgave}
+
 \subsection*{Antwoord}
 
+% Examenvraag
+\section{Bespreek deze transactieroosters}
+\subsection*{Opgave}
+
+\subsection*{Antwoord}
 \end{document}
