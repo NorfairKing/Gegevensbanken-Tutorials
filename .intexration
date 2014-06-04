@@ -1,2 +1,5 @@
 [normaalvormen]
 dir=normaalvormen
+
+[transacties]
+dir=transacties

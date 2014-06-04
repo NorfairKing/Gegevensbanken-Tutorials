@@ -35,12 +35,15 @@ We zullen een gerichte graaf opstellen aan de hand van $S$. Het rooster is confl
 % Examenvraag
 \section{Bespreek dit transactierooster}
 \subsection*{Opgave}
-Bepaal of dit rooster herstelbaar, cascadeloos, strict, conflict-serialiseerbaar is.
+Bepaal of dit rooster herstelbaar, cascadeloos, strict, conflict-serialiseerbaar is. Geef eventueel een conflict-serialiseerbaar alternatief en geef een serieel equivalent.
 
 \subsection*{Antwoord}
-Gebruik bovenstaande vragen als handleiding om elk van de vragen individueel op te lossen.
+Gebruik bovenstaande vragen als handleiding om elk van de vragen individueel op te lossen. Herstelbaarheid, cascadeloosheid en strictheid kunnen eenvoudig overlopen worden aan de hand van de definities. Onthoud ook de eigenschap omtrent deze drie eigenschappen: elke eigenschap is altijd een speciaal geval van de vorige. Zodra \'e\'en van de testen faalt kan je dus al stoppen (als je in deze volgorde werkt).
+
+Stel voor het testen van conflict-serializeerbaarheid zeker een precedence-graaf op. Test zeker ook eerst of het rooster serieel is want dan is het zeker conflict-serializeerbaar.
 
 % Examenvraag
+\iffalse
 \section{Timestamp ordering}
 \subsection*{Opgave}
 Gegeven een timestamp ordering algoritme.
@@ -50,6 +53,6 @@ Gegeven een timestamp ordering algoritme.
 \item Gegeven twee transacties, geef een mogelijk rooster met timestamp ordering.
 \end{itemize}
 \subsection*{Antwoord}
-
+\fi
 
 \end{document}
