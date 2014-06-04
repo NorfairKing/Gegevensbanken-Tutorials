@@ -5,6 +5,33 @@
 \renewcommand\thesection{V\arabic{section}}
 \renewcommand\thesubsection{V\arabic{section}}
 
+
+\section{Is dit transactierooster herstelbaar?}
+\subsection*{Opgave}
+Gegeven een transactierooster $S$ van $n$ transacties $T_i$. Bepaal of $S$ herstelbaar is. (Als $S$ herstelbaar is, kijk dan na of het cascadeloos en strict is.)
+\subsection*{Antwoord}
+\begin{enumerate}
+\item Bepaal voor elke variabele welke transacties ernaar schrijven.
+\item Bepaal voor elke variabele welke transacties ervan lezen.
+\item Check voor elke koppel $(T_1,T_2)$ transacties de noodzakelijke voorwaarde uit de definitie van herstelbaarheid.
+\item Als alle checks slagen, is het transactierooster herstelbaar.
+\end{enumerate}
+
+\section{Is dit transactierooster conflict-serialiseerbaar?}
+\subsection*{Opgave}
+Gegeven een transactierooster $S$ van $n$ transacties $T_i$. Bepaal of $S$ conflict-serialiseerbaar is.
+\subsection*{Antwoord}
+We zullen een gerichte graaf opstellen aan de hand van $S$. Het rooster is conflict-serialiseerbaar als en slechts als deze graaf geen cycli bevat.
+\begin{enumerate}
+\item Maak een knoop $v_i$ voor elke transactie $T_i$.
+\item Maak een book $e_{ij}$ voor elk van de volgende mogelijke gevallen.
+\begin{itemize}
+\item $T_i$ voert een \textbf{lees} operatie uit op $A$ \textbf{na} een \textbf{schrijf} operatie van $T_j$.
+\item $T_i$ voert een \textbf{schrijf} operatie uit op $A$ \textbf{na} een \textbf{lees} operatie van $T_j$.
+\item $T_i$ voert een \textbf{schrijf} operatie uit op $A$ \textbf{na} een \textbf{schrijf} operatie van $T_j$/
+\end{itemize}
+\end{enumerate}
+
 % Examenvraag
 \section{Timestamp ordering}
 \subsection*{Opgave}

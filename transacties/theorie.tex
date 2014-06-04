@@ -200,12 +200,25 @@ commit&
 Elk strict transactierooster is cascadeloos (en dus ook herstelbaar).
 \end{ei}
 
+\subsection{Equivalentie}
+\begin{de}
+Twee roosters zijn \textbf{resultaat-equivalent} als ze hetzelfde resultaat geven bij een bepaalde input.
+\end{de}
+\begin{de}
+Twee roosters zijn \textbf{conflict-equivalent} als de volgorde van elke twee conflicterende operaties dezelfde is in beide roosters.
+\end{de}
 \section{Serialisatie}
 \begin{de}
 Een rooster is \textbf{serieel} is een rooster waarin elke transactie afgemaakt wordt voor er aan een volgende wordt begonnen.
 \end{de}
 \begin{de}
-Een rooster is \textbf{serialiseerbaar} als en slechts als het equivalent is met een serieel rooster met dezelfde transacties.
+Een rooster is \textbf{conflict-serialiseerbaar} als en slechts als het conflict-equivalent is met een serieel rooster met dezelfde transacties.
 \end{de}
+We kunnen serialiseerbaarheid testen, maar dit geeft nog steeds problemen.
+\begin{itemize}
+\item De manier waarop de operaties worden opgevolgd wordt bepaald door het besturingssysteem en is dus niet te voorspellen.
+\item Transacties worden zo aangeboden dat het begin en einde vaak moeilijk te voorspellen is.
+\item Als het rooster niet serialiseerbaar blijkt te zijn is herstel duur.
+\end{itemize}
 
 \end{document}
