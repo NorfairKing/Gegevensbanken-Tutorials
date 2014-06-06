@@ -107,7 +107,7 @@ h = h(k)
 \end{enumerate}
 
 
-\subsection{Zoeken}
+\subsubsection{Zoeken}
 \begin{algorithm}
 \eIf{$n=0$}
 {$m \leftarrow h_{j}(K)$}
@@ -118,6 +118,47 @@ h = h(k)
 
 
 \section{Uitbreidbare hashing (extendible hashing)}
+Een vervolg op lineair hashen is uitbraar hashen.
+\subsection{Benamingen}
+\begin{itemize}
+\item $d$ de globale diepte van de index
+\item $d'$ de lokale diepte van een emmer.
+\item $b$: het aantal records er in een emmer gaan.
+\item $M$: Het huidig aantal plaatsen $M = 2^{d}$
+\item $N$: het huidig aantal elementen
+\item $h(k)$: de hashfunctie die de eerste $d$ bits van $k$ neemt.
+\end{itemize}
 
+\subsection{De procedure}
+Gegeven een record $r$ met sleutel $k$. We voegen deze in als volgt.
+\begin{enumerate}
+\item Hash de sleutel $k$ van $r$ tot $h$
+\[
+h = h(k)
+\] 
+\item Kijk in de index bij $h$ en volgt de pointer naar een emmer.
+\item Voeg $r$ (op de juiste plaats, op volgorde) toe aan de emmer die bij $h$ hoort. Gebruik (tijdelijk) overloop indien nodig.
+\item Indien er overloop opgetreden heeft, ga dan naar stap 4. Als er geen overloop heeft opgetreden, stop dan hier.
+\item Splits dan de emmers in twee emmers met een lokale diepte $d'^{*}$ die \'e\'en meer is dan de originele lokale diepte van de emmer.
+\[
+d'^{*} = d^{'} + 1
+\]
+\item Verdeel daarna alle records uit de originele emmer op de juiste manier (volgens de hash) onder de twee nieuwe emmers.
+\item Als de lokale diepte van de nieuwe emmers groter wordt dan de globale diepte van de index, ga dan naar stap 8. Stop anders hier.
+\item Hoog $d$ op, en maak de nieuwe index met de juiste wijzers.
+\end{enumerate}
+\begin{figure}[H]
+\centering
+\begin{tabular}{r|l}
+Voordelen & Nadelen\\
+\hline
+Weinig extra ruimte & \'E\'en extra indirectie\\
+Uitbreiding van cel is goedkoop & Uitbreiding van tabel is duur
+\end{tabular}
+\end{figure}
+
+\section{Dynamisch hashen (dynamic hashing)}
+U voelde het al aankomen, de index uit het deel over uitbreidbaar hashen zou natuurlijk veel beter een boom zijn.
+Indien we de index zouden vervangen door een boom, verandert er niet veel. Vervang in de vorige paragraaf `emmer' door `blad' en `wijzer' in `tak', dan krijgt u al een relatief goede uitleg.
 
 \end{document}
