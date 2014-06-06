@@ -3,3 +3,6 @@ dir=normaalvormen
 
 [transacties]
 dir=transacties
+
+[hashing]
+dir=hashing
