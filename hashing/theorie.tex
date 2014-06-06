@@ -62,48 +62,47 @@ Het idee achter lineaire hashing is het hash-bestand dynamisch te laten groeien 
 \subsection{Benamingen}
 Omdat het belangrijk is dat we weten waarover we spreken zijn hier de benamingen voor deze sectie samengevat. Gebruik deze lijst om terug te kijken wanneer u verder leest indien nodig.
 \begin{itemize}
-\item $M$: het huidig aantal emmers.
+\item $M$: het aantal emmers in het begin.
+\item $N$: het huidig aantal emmers.
 \item $d$: de diepte van een emmer.
 \item $m_i$: de $i$-de emmer
-\item $h_0$: de initi\"ele hashfunctie.
-\item $h_j$: de $j$-de hashfunctie.
+\item $h$ en $h'$: de hashfuncties.
 \item $n$: het nummer van de volgende te-splitsen emmer.
 \item $L$: de grens voor de laadfactor.
 \item $l$: de huidige laadfactor.
 \[
-l = \frac{r}{dM}
+l = \frac{r}{dN}
 \]
-\item $j$: het aantal verdubbelingen in grootte dat de structuur al heeft ondergaan.
 \end{itemize}
 
-\subsection{De hashfunctie}
-Definieer de initiele hash functie $h_0$ eenvoudigweg als volgt. 
+\subsection{De hashfuncties}
+Definieer de hash functie $h$ eenvoudigweg als volgt. 
 \[
-h_0(K) = K\ mod\ M
+h'(K) = K\ mod\ M
 \]
 De bits van $K$ worden dus als getal beschouwd om mee te rekenen.
-Definieer bovendien de hash functie $h_j$ als volgt.
+Definieer bovendien de hash functie $h'$ als volgt.
 \[
-h_{j}(K) = K\ mod\ (2^{j}M)
+h'(K) = K\ mod\ (2^{j}M)
 \]
 
 \subsection{De procedure}
 \subsubsection{initialisatie}
-Begin met een lijst van $M$ buckets en geef elke bucket een diepte $d$. $n$ begint bij $0$ alsook $j$. Kies $L$ als bovengrens voor de laadfactor.\footnote{Voor $L$ wordt vaak $0.7$ gekozen.}
+Begin met een lijst van $M$ buckets en geef elke bucket een diepte $d$. $n$ begint bij $0$. Kies $L$ als bovengrens voor de laadfactor.\footnote{Voor $L$ wordt vaak $0.7$ gekozen.}
 \subsubsection{toevoeging}
 Gegeven een record $r$ met sleutel $k$, voegen we deze in als volgt.
 \begin{enumerate}
-\item Hash de sleutel met hashfunctie $h_j$ om $h$ te bekomen. $h$ is dus een emmernummer.
+\item Hash de sleutel met hashfunctie $h$ om $h$ te bekomen. $h$ is dus een emmernummer.
 \[
-h = h_{j}(k)
+h = h(k)
 \]
-\item Voeg de record $r$ toe aan de $m$-de emmer $m_h$. (Als $m_h$ vol zit, gebruik dan de overloop.)
+\item Voeg de record $r$ toe aan de $h$-de emmer $m_h$. (Als $m_h$ vol zit, gebruik dan de overloop.)
 \item Bereken de laadfactor $l$. 
 \item Als de structuur overladen is ($l> L$), ga dan naar stap 5. Als de structuur niet overladen is, stop dan hier.
-\item Maak een nieuwe emmer op het einde van de lijst ($m_{n+M}$)
-\item Splits emmer $m_n$ door alle records in $m_n$ opnieuw te hashen, maar deze keer met hashfunctie $h_{j+1}$. Alle record die in $m_n$ zaten komen nu ofwel terug in $m_n$ terecht ofwel in de nieuwe emmer $m_{n+M}$
-\item Hoog $n$ op. $M$ is nu ook $1$ groter geworden.
-\item Als $n \ge \frac{M}{2}$, hoog dan $j$ op, en zet $n$ terug op $0$. Dit gebeurt wanneer de lijst dubbel zo lang is geworden als de originele lijst.
+\item Maak een nieuwe emmer $m_{n+M}= m_{N}$ op het einde van de lijst.
+\item Splits emmer $m_n$ door alle records in $m_n$ opnieuw te hashen, maar deze keer met hashfunctie $h'$. Alle record die in $m_n$ zaten komen nu ofwel terug in $m_n$ terecht ofwel in de nieuwe emmer $m_{n+M}$
+\item Hoog $n$ op. $M$ blijft onveranderd maar $N$ is wel $1$ groter geworden!
+\item Als $n \ge M$, zet dan $n$ terug op $0$ en verdubbel $M$. Dit gebeurt wanneer de lijst dubbel zo lang is geworden als de originele lijst.
 
 \end{enumerate}
 

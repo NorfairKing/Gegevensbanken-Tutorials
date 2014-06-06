@@ -1,10 +1,170 @@
-\documentclass[hashing.tex]{subfiles}
+ \documentclass[hashing.tex]{subfiles}
 \begin{document}
 
 \chapter{Voorbeeld}
 \section{Lineaire hashtabel}
 \subsection*{Opgave}
-Een lineaire hashtabel met al enkele waarden. Er zijn 4 buckets met elk max. 3 waarden. De maximale load factor is 0.7. 
+Gegeven volgende hashtabel. Er zijn 4 buckets met elk max. 2 waarden. De maximale load factor is 0.7.
+\[
+\begin{array}{|c|c|c|c||c|c|}
+m_0&m_1&m_2&m_3&m_4&m_5\\
+\hline
+8 & 1 & 2 & 3 & 4 & 5\\
+  &   & 14&   &   &\\
+  &   & \color{red}10 & & &
+\end{array} 
+\]
+Voeg $7$, $24$ en $0$ in in deze structuur.
 \subsection*{Antwoord}
+We gaan eenvoudigweg de stappen uit het geziene algoritme af.
+\subsubsection{$7$ toevoegen}
+Stand van zaken:
+\begin{multicols}{4}
+\begin{itemize}
+\item $n=2$
+\item $M=4$
+\item $N=6$
+\item $l=\frac{8}{12} = 0.667$
+\end{itemize}
+\end{multicols}
+\begin{enumerate}
+\item Hash $7$ met $h(k) = k\ mod\ M = k\ mod\ 4$.
+\[
+h(7) = 3
+\]
+\item Voeg $7$ toe aan $m_h = m_{3}$.
+\[
+\begin{array}{|c|c|c|c||c|c|}
+m_0&m_1&m_2&m_3&m_4&m_5\\
+\hline
+8 & 1 & 2 & 3 & 4 & 5\\
+  &   & 14& 7 &   &\\
+  &   & \color{red}10 & & &
+\end{array} 
+\]
+\item De nieuwe laadfactor $l=\frac{9}{12} = 0.75 > 0.7 = L$. De structuur is dus overladen.
+\item We maken een nieuwe emmer $m_{n+M} = m_{N} = m_6$.
+\[
+\begin{array}{|c|c|c|c||c|c|c|}
+m_0&m_1&m_2&m_3&m_4&m_5&m_6\\
+\hline
+8 & 1 & 2 & 3 & 4 & 5& \\
+  &   & 14& 7 &   &&\\
+  &   & \color{red}10 & & &&
+\end{array} 
+\]
+\item Splits emmer $m_n = m_2$. We moeten daarvoor de drie waarden in $m_2$ opnieuw hashen, deze keer met hashfunctie $h'(k) = k\ mod\ 2M = k\ mod\ 8$.
+\[
+\left\{
+\begin{array}{c c}
+h'(2) &= 2\\
+h'(14) &= 6\\
+h'(10) &= 2
+\end{array}
+\right.
+\] 
+\[
+\begin{array}{|c|c|c|c||c|c|c|}
+m_0&m_1&m_2&m_3&m_4&m_5&m_6\\
+\hline
+8 & 1 & 2 & 3 & 4 & 5& 14\\
+  &   & 10& 7 &   &&\\
+\end{array} 
+\]
+\item Hoog $n$ op, zodat $n$ $3$ wordt. $N$ is nu $7$.
+\item $n = 3 \not\ge M=4$ dus $M$ wordt niet verdubbelt.
+\end{enumerate}
+De nieuwe stand van zaken:
+\begin{multicols}{4}
+\begin{itemize}
+\item $n=3$
+\item $M=4$
+\item $N=7$
+\item $l=\frac{9}{14} = 0.642$
+\end{itemize}
+\end{multicols}
+
+\subsubsection{$24$ toevoegen}
+\begin{enumerate}
+\item Hash $24$ met $h(k) = k\ mod\ M = k\ mod\ 4$.
+\[
+h(24) = 0
+\]
+\item Voeg $24$ toe aan $m_h = m_{0}$
+\[
+\begin{array}{|c|c|c|c||c|c|c|}
+m_0&m_1&m_2&m_3&m_4&m_5&m_6\\
+\hline
+8 & 1 & 2 & 3 & 4 & 5& 14\\
+24&   & 10& 7 &   &&\\
+\end{array} 
+\]
+\item De nieuwe laadfactor $l=\frac{10}{14} = 0.71 > 0.7 = L$. De structuur is dus overladen.
+\item We maken een nieuwe emmer $m_{n+M}=m_{N} = m_{7}$.
+\[
+\begin{array}{|c|c|c|c||c|c|c|c|}
+m_0&m_1&m_2&m_3&m_4&m_5&m_6&m_7\\
+\hline
+8 & 1 & 2 & 3 & 4 & 5& 14&\\
+24&   & 10& 7 &   &&&\\
+\end{array} 
+\]
+\item Splits emmer $m_{n} = m_3$ met $h'(k) = k\ mod 2M = k\ mod\ 8$
+\[
+\left\{
+\begin{array}{c c}
+h'(3) &= 3\\
+h'(7) &= 7
+\end{array}
+\right.
+\]
+\[
+\begin{array}{|c|c|c|c||c|c|c|c|}
+m_0&m_1&m_2&m_3&m_4&m_5&m_6&m_7\\
+\hline
+8 & 1 & 2 & 3 & 4 & 5& 14&7\\
+24&   & 10&  &   &&&\\
+\end{array} 
+\]
+\item Hoog $n$ op zodat $n$ $4$ wordt. $N$ is nu $8$.
+\item $n=4\ge M=4$ dus $M$ wordt verdubbelt. $n$ wordt terug op $0$ gezet.
+\end{enumerate}
+De nieuwe stand van zaken:
+\begin{multicols}{4}
+\begin{itemize}
+\item $n=0$
+\item $M=8$
+\item $N=8$
+\item $l=\frac{10}{16} = 0.625$
+\end{itemize}
+\end{multicols}
+
+\subsubsection{$0$ toevoegen}
+\begin{enumerate}
+\item Hash $0$ met $h(k) = k\ mod\ M = k\ mod\ 8$.
+\[
+h(0) = 0
+\]
+\item Voeg $0$ toe aan $m_h = m_0$ (in overloop).
+\[
+\begin{array}{|c|c|c|c|c|c|c|c|}
+m_0&m_1&m_2&m_3&m_4&m_5&m_6&m_7\\
+\hline
+8 & 1 & 2 & 3 & 4 & 5& 14&7\\
+24&   & 10&  &   &&&\\
+\color{red}0
+\end{array} 
+\]
+\item De nieuwe laadfactor $l=\frac{11}{16} = 0.6875 < L = 0.7$. De structuur is niet overladen, dus we kunnen hier stoppen.
+\end{enumerate}
+De nieuwe stand van zaken:
+\begin{multicols}{4}
+\begin{itemize}
+\item $n=0$
+\item $M=8$
+\item $N=8$
+\item $l=\frac{11}{16} = 0.6875$
+\end{itemize}
+\end{multicols}
 
 \end{document}
