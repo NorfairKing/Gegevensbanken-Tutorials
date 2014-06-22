@@ -5,9 +5,66 @@
 \renewcommand\thesection{V\arabic{section}}
 \renewcommand\thesubsection{V\arabic{section}}
 
-\section{Vraag}
+\section{Toeganssnelheid}
 \subsection*{Opgave}
+Gegeven een disk met een blok groote $B$. Een wijzer naar een blok heeft groote $P_b$ en een wijzer naar een record heeft groote $P_r$. Een bestand heeft $r$ records van vaste grootte $R$. Elk record heeft groote $i$ velden met respectievelijke grootte $I_i$. Een deletion marker heeft groote $I_{del}$.
+\begin{itemize}
+\item Bereken de record grootte $R$.
+\item Bereken de blocking factor $bfr$.
+\item \'e\'en van de zes volgende vragen.
+\begin{itemize}
+\item Gegeven dat het bestand ge\"ordend is op veld $j$ (met unieke waarden) en we een primaire index willen construeren op dat veld.
+\begin{itemize}
+\item Bereken de index blocking factor $bfr_i$ en de fan-out $fo$.
+\item Bereken het totaal records op het eerste indexeringsniveau $r_{i_1}$ en het aantal blokken op het eerste indexeringsniveau $b_{i_1}$.
+\item Bereken het totaal aantal niveaus $h$ nodig als we een meervoudige index zouden maken. 
+\item Bereken het totaal aantal records $r_{i_{tot}}$ en het totaal aantal blokken $b_{i_{tot}}$ nodig voor de hele meervoudige index.
+\item Bereken het totaal aantal blok toegangen nodig om een record te vinden.
+\end{itemize}
 
+\item
+Gegeven dat het bestand niet geordend is op veld $j$ (met unieke waarden) en we een secundaire index willen construeren op dat veld.
+\begin{itemize}
+\item Bereken de index blocking factor $bfr_i$ en de fan-out $fo$.
+\item Bereken het totaal records op het eerste indexeringsniveau $r_{i_1}$ en het aantal blokken op het eerste indexeringsniveau $b_{i_1}$.
+\item Bereken het totaal aantal niveaus $h$ nodig als we een meervoudige index zouden maken. 
+\item Bereken het totaal aantal records $r_{i_{tot}}$ en het totaal aantal blokken $b_{i_{tot}}$ nodig voor de hele meervoudige index.
+\item Bereken het totaal aantal blok toegangen nodig om een record te vinden.
+\end{itemize}
+
+\item 
+Gegeven dat het bestand niet geordend is op het veld $j$, en we de derde optie gebruiken voor een secundaire index. Er is dus een extra niveau van indirectie voor record wijzers. Gegeven dat er $u_j$ unieke waarden van het $j$-de veld zijn.
+\begin{itemize}
+\item Bereken de index blocking factor en de fan-out $fo$.
+\item Bereken het aantal blokken $b_0$ en het aantal records $r_0$ nodig voor het extra niveau van indirectie.
+\item Bereken het totaal records op het eerste indexeringsniveau $r_{i_1}$ en het aantal blokken op het eerste indexeringsniveau $b_{i_1}$.
+\item Bereken het totaal aantal niveaus $h$ nodig als we een meervoudige index zouden maken. 
+\item Bereken het totaal aantal records $r_{i_{tot}}$ en het totaal aantal blokken $b_{i_{tot}}$ nodig voor de hele meervoudige index.
+\item Bereken het totaal aantal blok toegangen nodig om een record te vinden.
+\end{itemize}
+
+\item
+Gegeven dat een bestand is geordend op het veld $j$, en we een clusterende index willen construeren op dat veld. De index gebruikt blok ankers. Gegeven dat er $u_j$ unieke waarden van het $j$-de veld zijn.
+\begin{itemize}
+\item Bereken de index blocking factor $bfr_i$ en de fan-out $fo$.
+\item Bereken het totaal records op het eerste indexeringsniveau $r_{i_1}$ en het aantal blokken op het eerste indexeringsniveau $b_{i_1}$.
+\item Bereken het totaal aantal niveaus $h$ nodig als we een meervoudige index zouden maken. 
+\item Bereken het totaal aantal records $r_{i_{tot}}$ en het totaal aantal blokken $b_{i_{tot}}$ nodig voor de hele meervoudige index.
+\item Bereken het totaal aantal blok toegangen nodig om een record te vinden.
+\end{itemize}
+
+\item
+Gegeven dat een bestand is geordend op het veld $j$ met unieke waarden, en we een B (of B+) boom willen construeren op dat veld.
+\begin{itemize}
+\item Bereken de ordes $p_{knoop}$ en $p_{blad}$ voor een B+ boom en de orde $p'_{knoop}$ voor een B boom.
+\item Bereken het aantal bladeren nodig $b_l$ voor een B+ boom en $b'_l$ voor een B boom als de B(+) boom $L$ vol zit.
+\item Bereken het aantal niveaus $h$ nodig als alle knopen $L$ vol zitten.
+\item Bereken het totaal aantal blokken $b^{*}$ en $b'^{*}$ nodig voor de B+ en B boom.
+\end{itemize}
+
+\end{itemize}
+\end{itemize}
 \subsection*{Antwoord}
+TODO
 
 \end{document}

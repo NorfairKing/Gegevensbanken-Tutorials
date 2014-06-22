@@ -44,7 +44,10 @@ bfr = \left\lfloor \frac{B}{R} \right\rfloor
 Omdat een index ook een bestand met records is kunnen we deze begrippen ook in de context van indexen gebruiken. We gebruiken dan een subscript $_i$.
 Voor een dichte index geldt $r_i = r$, maar voor een index met ankerrecords geldt $r_i = b$.
 \begin{de}
-De blocking factor van een index wordt ook wel de \textbf{fan-out} genoemd.
+De blocking factor van een index wordt ook wel de \textbf{fan-out} $fo$ genoemd.
+\[
+bfr_i = fo
+\]
 \end{de}
 
 \section{Enkelvoudige indexen (single-level indexes)}
@@ -122,9 +125,18 @@ Secundair (2) & $u_{veld}$ & spaars & nee\\
 \end{figure}
 
 \section{Meervoudige indexen (multi-level indexes)}
+Het idee achter meervoudige indexen is dat we het aantal indexblokken dat gelezen moet worden nog verkleind kan worden. Dit is beter dan binair zoeken omdat de blocking factor van de index$bfr_i$ groter is dan twee.
+Omdat het eerste niveau van indexering een bestand is dat geordend is op een veld met unieke waarden, kunnen we hier een primaire indexering op maken met (ankerblokken).
+Die indexering kunnen we opnieuw indexeren. 
+Zo gaan we voort tot al de records van de bovenste indexering in \'e\'en blok passen. 
+
+\noindent Het aantal niveaus van indexering vinden we dan als volgt.
+\[
+t = \lceil \log_{fo}(r_1) \rceil
+\]
 
 \section{B en B+ bomen}
-
+Een B en B+ bomen zijn dynamische indexstructuren. het zijn gebalanceerde bomen van orde $p$. TODO
 
 \newpage
 \begin{figure}[H]
@@ -146,6 +158,10 @@ Secundair (2) & $u_{veld}$ & spaars & nee\\
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{illustraties/hash_index.png}
 \caption{Hash index}
+\end{figure}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{illustraties/b_plus_tree.png}
+\caption{B+ boom}
 \end{figure}
 
 \end{document}
