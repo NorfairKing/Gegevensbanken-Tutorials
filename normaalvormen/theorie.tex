@@ -156,7 +156,7 @@ Een relatieschema $S_{R} = (U,F)$ is in \textbf{eerste normaalvorm (NF1)} als en
 
 \begin{de}
 Een relatieschema $S_{R} = (U,F)$ is in \textbf{tweede normaalvorm (NF2)} als en slechts als voor elk niet-sleutelattribuut $A \in U$ geldt dat $A$ volledig functioneel afhankgelijk is van \emph{een} kandidaatsleutel van $R$.\\
-In mensentaal: Elk niet-sleutel-attribuut is \emph{enkel} volledig, \emph{eventueel transitief}, afhankelijk van (een) supersleutel(s). (Je kan het niet determineren met minder dan een supersleutel)
+In mensentaal: Elk niet-sleutel-attribuut is \emph{enkel} volledig, \emph{eventueel transitief}, afhankelijk van (een) supersleutel(s). (Je kan het niet determineren met minder dan een supersleutel) Er zijn dus geen niet-sleutel-attributen nog partieel functioneel afhankelijk van een supersleutel.
 \end{de}
 
 \begin{de}
@@ -164,12 +164,12 @@ Een relatieschema $S_{R} = (U,F)$ is in \textbf{derde normaalvorm (NF3)} als en 
 \[
 A \text{ is een sleutel-attribuut van } R \text{ of } X \text{ is een supersleutel voor R}
 \]
-In mensentaal: Elk niet-sleutel-attribuut is \textbf{enkel} volledig, \emph{niet-transitief<}, afhankelijk van \emph{elke} supersleutel.
+In mensentaal: Elk niet-sleutel-attribuut is \textbf{enkel} volledig, \emph{niet-transitief<}, afhankelijk van \emph{elke} supersleutel. Er zijn dus geen niet-sleutel-attributen partieel of transitief functioneel afhankelijk van een supersleutel.
 \end{de}
 
 \begin{de}
 Een relatieschema $S_{R} = (U,F)$ is in \textbf{Boyce-Codd normaalvorm (BCNF)} als en slechts als geen enkel sleutelattribuut van $U$ partieel of transitief functioneel afhankelijk is van een kandidaatsleutel van $R$.\\
-In mensentaal: Supersleutels zijn  noch rechtstreeks, noch transitief afhankelijk van niet-sleutel- attributen.
+In mensentaal: Sleutelattributen zijn niet functioneel afhankelijk van niet-sleutel-attributen.
 \end{de}
 
 Let op: De definities zijn inderdaad incrementeel. Ze bouwen voort op elkaar, ookal is dat niet expliciet aangegeven in de definitie.
@@ -195,24 +195,67 @@ Let op: De definities zijn inderdaad incrementeel. Ze bouwen voort op elkaar, oo
 \begin{itemize}
 \item
 \[
-(U,F) = (\{\underline{A}, \underline{B}, C\},\{AB\rightarrow C, A \rightarrow C\})
+(\{\underline{A}, \underline{B}, C\},\{AB\rightarrow C, A \rightarrow C\})
 \]
 $C$, een niet-sleutel-attribuut is hier nog partieel afhankelijk van een supersleutel ($AB$).
 \item
 \[
-(U,F) = (\{\underline{A}, \underline{B}, C , D\},\{AB\rightarrow CD, B \rightarrow D\})
+(\{\underline{A}, \underline{B}, C , D\},\{AB\rightarrow CD, B \rightarrow D\})
 \]
 $D$, een niet-sleutel-attribuut is hier nog partieel afhankelijk van een supersleutel ($AB$).
 \item
 \[
-(U,F) = (\{\underline{A},B,C,D,E\},\{A\rightarrow BCDE, BC\rightarrow ADE, B\rightarrow D, D\rightarrow E\})
+(\{\underline{A},B,C,D,E\},\{A\rightarrow BCDE, BC\rightarrow ADE, B\rightarrow D, D\rightarrow E\})
 \]
 $D$, een niet-sleutel-attribuut is hier nog partieel afhankelijk van een supersleutel ($BC$);
 \end{itemize}
 
 
 \subsubsection*{3NF}
+\textbf{Wel} in derde normaalvorm:
+\begin{itemize}
+\item
+\[
+(\{\underline{A}, \underline{B}, C\},\{AB\rightarrow C\})
+\]
+\[
+(\{\underline{A}, B, C, D\},\{A\rightarrow BCD,BC\rightarrow AD\})
+\]
+\end{itemize}
+\textbf{Niet} in derde normaalvorm (maar wel in tweede).
+\begin{itemize}
+\item
+\[
+(\{\underline{A},B,C\},\{A\rightarrow BC, B\rightarrow C\})
+\]
+$C$, een niet-sleutel-attribuut is hier nog transitief functioneel afhankelijk van een supersleutel ($BC$).
+\item
+\[
+(\{\underline{A},B,C,D,E\},\{A\rightarrow BCDE, BC\rightarrow ADE, D\rightarrow E\})
+\]
+$E$, een niet-sleutel-attribuut is hier nog transitief functioneel afhankelijk van een supersleutel (allebei).
+\end{itemize}
 
 \subsubsection*{BCNF}
+\textbf{Wel} in Boyce-Codd normaalvorm:
+\begin{itemize}
+\item 
+\[
+(\{\underline{A},B,C\},\{A\rightarrow BC\})
+\]
+\end{itemize}
+\textbf{Niet} in Boyce-Codd normaalvorm (maar wel in derde).
+\begin{itemize}
+\item
+\[
+(\{\underline{A},\underline{B},C\},\{AB\rightarrow C, C\rightarrow A\})
+\]
+$B$, een sleutel-attribuut, is functioneel afhankelijk van een niet-sleutel-attribuut ($C$).
+\item
+\[
+(\{\underline{A}, B, C, D\},\{A\rightarrow BCD,B\rightarrow ACD,D\rightarrow B\})
+\]
+$B$, een sleutel-attribuut, is functioneel afhankelijk van een niet-sleutel-attribuut ($D$).
+\end{itemize}
 
 \end{document}
