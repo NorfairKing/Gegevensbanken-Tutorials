@@ -19,39 +19,70 @@ Zij  $X$ en $Y$ attributenverzamelingen. $Y$ is \textbf{functioneel afhankelijk}
 \[
 X\rightarrow Y
 \]
+In mensentaal:
+Stel dat we de $X$ van een tupel kennen, dan kunnen we \emph{met zekerheid} de juiste bijhorende $Y$ vinden.
 \end{de}
+
 \begin{de}
-Een functionele afhankelijkheid $X\rightarrow Y$ is \textbf{partieel} als er een kleinere deelverzameling $Z$ bestaat van $X$ ($Z\subset X$) zodat Y functioneel afhankelijk is van $Z$. ($Z\rightarrow Y$)
+Een functionele afhankelijkheid $X\rightarrow Y$ is \textbf{partieel} als er een kleinere deelverzameling $Z$ bestaat van $X$ ($Z\subset X$) zodat Y functioneel afhankelijk is van $Z$.
+\[
+X \rightarrow Y \text{ maar } \exists Z \subset X \text{ en } Z \rightarrow Y
+\]
+In mensentaal:
+$X$ is meer dan genoeg om $Y$ te bepalen.
 \end{de}
+
 \begin{de}
 Een functionele afhankelijkheid noemen we \textbf{volledig} wanneer ze niet partieel is.
+\[
+X \rightarrow Y \text{ en } \not\exists Z \subset X \text{ en } Z \rightarrow Y
+\]
+In mensentaal:
+$X$ is genoeg om $Y$ te bepalen, maar wel maar net genoeg.
 \end{de}
+
 \begin{de}
 Een functionele afhankelijkheid $X\rightarrow Y$ is \textbf{triviaal} wanneer $Y$ een deel is van $X$.
 \[
 Y \subseteq X
 \]
+In mensentaal:
+Elk deel van je kennis behoort ook tot je kennis.
 \end{de}
+
 \begin{de}
-De \textbf{sluiting van een verzameling van attributen} $X$ onder een verzameling functionele afhankelijkheden $X_{F}^+$ is de verzameling van alle attribuutverzamelingen die functioneel afhankelijk zijn van $X$
+De \textbf{sluiting van een verzameling van attributen} $X$ onder een verzameling functionele afhankelijkheden $X_{F}^+$ is de verzameling van alle attribuutverzamelingen die functioneel afhankelijk zijn van $X$ (al dan niet door andere afhankelijkheden in $F$)
 \[
 X_{F}^{+} = \{\ Y\ |\ X\rightarrow Y\ \}
 \]
+In mensentaal:
+Alle $Y$ die je \emph{uiteindelijk} te weten kan komen als je $X$ weet (in $F$).
 \end{de}
+
 \begin{de}
 Een verzameling functionele afhankelijkheden $E$ \textbf{overdekt} een andere verzameling functionele afhankelijkheden $F$ als voor elke $e = X\rightarrow Y$ geldt dat $Y \subseteq X_{F}^{+}$
+\[
+\forall (X \rightarrow Y) \in E: Y \subseteq X_{F}^{+}
+\]
+In mensentaal:
+Alles dat je te weten kan komen in $E$ kan je ook te weten komen in $F$.
 \end{de}
+
 \begin{de}
-We spreken van \textbf{equivaltente verzamelingen} $E$ en $F$ van \textbf{functionele afhankelijkheden} als zowel $E$ $F$ overdekt, als $F$ $E$ overdekt.
+We spreken van \textbf{equivaltente verzamelingen} $E$ en $F$ van \textbf{functionele afhankelijkheden} als zowel $E$ $F$ overdekt, als $F$ $E$ overdekt.\\
+In mensentaal: In $F$ weet je evenveel als in $E$.
 \end{de}
+
 \begin{de}
-Een verzameling functionele afhankelijkheden is minimaal als en slechts als er geen equivalente verzameling $G$ te vormen valt door  ...
+Een verzameling functionele afhankelijkheden $F$ is minimaal als en slechts als er geen equivalente verzameling $G$ te vormen valt door  ...
 \begin{itemize}
-\item een afhankelijkheid uit $F$.
-\item een attribuut uit de rechterkant van een afhankelijkheid uit $F$.
-\item een attribuut uit de linkerkant van een afhankelijkheid uit $F$.
+\item een afhankelijkheid uit $F$ te verwijderen.
+\item een attribuut uit de rechterkant van een afhankelijkheid uit $F$ te verwijderen.
+\item een attribuut uit de linkerkant van een afhankelijkheid uit $F$ te verwijderen.
 \end{itemize}
+In mensentaal: Er zit geen overbodige kennis in $F$
 \end{de}
+
 \begin{de}
 Een functionele afhankelijkheid $X\rightarrow Y$ in een relatieschema $S_{R} = (U,F)$ is \textbf{transitief} als en slechts als er een $Z$ bestaat zodat aan volgende voorwaarden voldaan is.
 \begin{itemize}
@@ -61,6 +92,7 @@ Een functionele afhankelijkheid $X\rightarrow Y$ in een relatieschema $S_{R} = (
 \end{itemize}
 \emph{In mensentaal: $X\rightarrow Y$ is een transitieve functionele afhankelijheid als er nog een $Z$ tussen past. ($X\rightarrow Z\rightarrow Y$}
 \end{de}
+
 \subsection{Afleidingsregels}
 \begin{reg} \textbf{Reflexiviteit}
 \[
@@ -97,37 +129,49 @@ Y \subseteq X \Rightarrow X \rightarrow Y
 \begin{de}
 Een verzameling attributen $K$ is een \textbf{supersleutel} voor een relatie $R$ met schema $S_{R} = (U,F)$ als en slechts als $K$ elk attribuut in $U$ determineert.
 \[
-K_{F}^{+} = U
+\forall u \in U:  K\rightarrow u \text{ of ook } K_{F}^{+} = U
 \]
+In mensentaal:
+Uit een supersleutel kan je \emph{uiteindelijk} al de rest afleiden.
 \end{de}
+
 \begin{de}
-Een verzameling attributen $K$ is een \textbf{(kandidaat)sleutel}  voor een relatie $R$ met schema $S_{R} = (U,F)$ als en slechts als $K$ een supersleutel is en er geen kleinere deelverzameling van $K$ een supersleutel is voor $R$.
+Een verzameling attributen $K$ is een \textbf{(kandidaat)sleutel}  voor een relatie $R$ met schema $S_{R} = (U,F)$ als en slechts als $K$ een supersleutel is en er geen kleinere deelverzameling van $K$ een supersleutel is voor $R$.\\
+In mensentaal: Een (kandidaat)sleutel is \'e\'en van de kleinste verzamelingen waaruit al de rest kan afgeleid worden.
 \end{de}
+
 \begin{de}
 Een attribuut $A$ is een sleutelattribuut voor een relatie $R$ met schema $S_{R} = (U,F)$ als en slecht als er een sleutel $K$ voor $R$ bestaat waar $A$ in zit.
+In mensentaal: Een sleutelattribuut is een attribuut in een sleutel.
 \end{de}
+
 \section{Normaalvormen}
 \begin{de}
 Elk relatieschema is in \textbf{nulde normaalvorm (NF0)}. Er zijn geen voorwaarden opgelegd aan de attributen of functionele afhankelijkheden.
 \end{de}
+
 \begin{de}
-Een relatieschema $S_{R} = (U,F)$ is in \textbf{eerste normaalvorm (NF1)} als en slechts als het domein van elk attribuut in $U$ enkelvoudig is.
-\end{de}
-\begin{de}
-Een relatieschema $S_{R} = (U,F)$ is in \textbf{tweede normaalvorm (NF2)} als en slechts als voor elk niet-sleutelattribuut $A \in U$ geldt dat $A$ partieel functioneel afhankgelijk is van een kandidaatsleutel van $R$.
-\emph{In mensentaal: ``Voor elk niet-sleutel-attribuut moet de hele primaire sleutel nodig zijn om het te determineren.''}
-\end{de}
-\begin{de}
-Een relatieschema $S_{R} = (U,F)$ is in \textbf{derde normaalvorm (NF3)} als en slechts als volgende implicatie geldt voor elke niet-triviale functionele afhankelijkheid $X\rightarrow A$.
-\[
-A \text{ is een niet-sleutel-attribuut } \Rightarrow X \text{ is een supersletel voor R}
-\]
-\emph{In mensentaal: Niet-sleutel-attributen zijn enkel afhankelijk van supersleutels.}
-\end{de}
-\begin{de}
-Een relatieschema $S_{R} = (U,F)$ is in \textbf{Boyce-Codd normaalvorm (BCNF)} als en slechts als geen enkel sleutelattribuut van $U$ partieel of transitief functioneel afhankelijk is van een kandidaatsleutel van $R$.
-\emph{In mensentaal: Supersleutels zijn onafhankelijk.}
+Een relatieschema $S_{R} = (U,F)$ is in \textbf{eerste normaalvorm (NF1)} als en slechts als het domein van elk attribuut in $U$ enkelvoudig is. Er zijn dus geen meervoudige attributen in $U$.
 \end{de}
 
+\begin{de}
+Een relatieschema $S_{R} = (U,F)$ is in \textbf{tweede normaalvorm (NF2)} als en slechts als voor elk niet-sleutelattribuut $A \in U$ geldt dat $A$ volledig functioneel afhankgelijk is van \emph{een} kandidaatsleutel van $R$.\\
+In mensentaal: Elk niet-sleutel-attribuut is volledig, eventueel transitief, afhankelijk van de primaire sleutel.
+\end{de}
+
+\begin{de}
+Een relatieschema $S_{R} = (U,F)$ is in \textbf{derde normaalvorm (NF3)} als en slechts als het volgende geldt voor elke niet-triviale functionele afhankelijkheid $X\rightarrow A$.
+\[
+A \text{ is een sleutel-attribuut van } R \text{ of } X \text{ is een supersleutel voor R}
+\]
+In mensentaal: Elk niet-sleutel-attribuut is volledig, niet-transitief afhankelijk van de primaire sleutel.
+\end{de}
+
+\begin{de}
+Een relatieschema $S_{R} = (U,F)$ is in \textbf{Boyce-Codd normaalvorm (BCNF)} als en slechts als geen enkel sleutelattribuut van $U$ partieel of transitief functioneel afhankelijk is van een kandidaatsleutel van $R$.\\
+In mensentaal: Supersleutels zijn  noch rechtstreeks, noch transitief afhankelijk van niet-sleutel- attributen.
+\end{de}
+
+Let op: De definities zijn inderdaad incrementeel. Ze bouwen voort op elkaar.
 
 \end{document}
