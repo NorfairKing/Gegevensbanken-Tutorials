@@ -29,11 +29,16 @@ $X_{F}^{+} \leftarrow X$\\
 \subsection*{Opgave}
 Gegeven zijn twee verzamelingen functionele afhankelijkheden $E$ en $F$. Bereken of $E$ $F$ overdekt, Bereken of $F$ $E$ overdekt en concludeer of $E$ en $F$ equivalent zijn.
 \subsection*{Antwoord}
-Ga simpelweg alle functionele afhankelijkheden $X\rightarrow Y \in E$ af en controleer of $Y \subseteq X_{F}^{+}$.
+Ga simpelweg alle functionele afhankelijkheden $X\rightarrow Y \in E$ af en controleer of $Y \subseteq X_{F}^{+}$. Controleer het daarna andersom.
 \begin{mdframed}
 \begin{algorithm}[H]
 \ForEach{$e = X\rightarrow Y \in E$}{
 	If{ $Y \not\subseteq X_{F}^{+}$}{
+		\Return{False}
+	}
+}
+\ForEach{$f = X\rightarrow Y \in F$}{
+	If{ $Y \not\subseteq X_{E}^{+}$}{
 		\Return{False}
 	}
 }
