@@ -45,7 +45,7 @@ Botsingen worden opgelost buiten de hoofd-tabel. Elke cel houdt ook een overloop
 \begin{tabular}{r|l}
 Voordelen & Nadelen\\
 \hline
-Opzoeken kan snel gebeuren & Opsoeken via ander sleutelveld wordt moeilijk\\
+Opzoeken kan snel gebeuren & Opzoeken via ander sleutelveld wordt moeilijk\\
 Toevoegen en verwijderen is eenvoudig & Doorlopen op sleutelvolgorde wordt traag.
 \end{tabular}
 \end{figure}
@@ -78,12 +78,12 @@ l = \frac{r}{dN}
 \subsection{De hashfuncties}
 Definieer de hash functie $h$ eenvoudigweg als volgt. 
 \[
-h'(K) = K\ mod\ M
+h(K) = K\ mod\ M
 \]
 De bits van $K$ worden dus als getal beschouwd om mee te rekenen.
 Definieer bovendien de hash functie $h'$ als volgt.
 \[
-h'(K) = K\ mod\ (2^{j}M)
+h'(K) = K\ mod\ (2M)
 \]
 
 \subsection{De procedure}
