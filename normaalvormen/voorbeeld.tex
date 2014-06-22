@@ -182,11 +182,11 @@ In dit schema zijn $A$ en $B$ sleutelattributen van de primaire sleutel $AB$.
 \begin{enumerate}
 \item Het schema staat in eerste normaalvorm. We weten eigenlijk niets van meervourdige of samengestelde attributen in dit geval, maar we gaan er van uit dat er niet in dit schema zitten.
 
-\item Het schema staat in tweede normaalvorm. Voor elk niet-sleutel-attribuut moet de hele primaire sleutel nodig zijn om te determineren. Inderdaad, $C$ en $D$ zijn niet-sleutel attributen en deze zijn beide functioneel afhankelijk van $AB$.
+\item Het schema staat in tweede normaalvorm. Voor elk niet-sleutel-attribuut moet de hele primaire sleutel nodig zijn om te determineren. Inderdaad, $C$ en $D$ zijn niet-sleutel attributen en deze zijn beide enkel volledig (of transitief) functioneel afhankelijk van $AB$.
 
-\item Het schema staat in derde normaalvorm. De niet-sleutel-attributen zijn namelijk enkel afhankelijk van supersleutels. Inderdaad, $C$ en $D$ zijn enkel afhankelijk van de supersleutel $AB$.
+\item Het schema staat in derde normaalvorm. De niet-sleutel-attributen zijn namelijk enkel afhankelijk van supersleutels. Inderdaad, $C$ en $D$ zijn enkel volledig afhankelijk van de supersleutel $AB$.
 
-\item Het schema staat niet in de Boyce-Codd normaalvorm. De supersleutels zijn namelijk niet onafhankelijk. $B$ is namelijk functioneel afhankelijk van $C$.
+\item Het schema staat niet in de Boyce-Codd normaalvorm. Een sleutel-attribuut ($B$) is namelijk afhankelijk van een niet-sleutel-attribuut ($C$).
 \end{enumerate}
 
 \section{Normaliseer zo ver mogelijk.}
@@ -217,5 +217,6 @@ U_{1} = \{\underline{A},B,C,D\}\text{ en } U_{2} = \{BF\} \text{ en } U_3 = \{D,
 \[
 F_{1} = \{A\rightarrow BCDEF , BC\rightarrow ADEF\} \text{ en } F_{2} = \{B\rightarrow F\} \text{ en } F_{3} = \{D\rightarrow E\}
 \]
+\item Het schema staat nu toevallig ook in Boyce-Codd normaalvorm.
 \end{enumerate}
 \end{document}
