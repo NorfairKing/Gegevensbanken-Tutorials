@@ -1,0 +1,164 @@
+\documentclass[hashing.tex]{subfiles}
+\begin{document}
+\chapter{Theorie}
+
+
+\section{Hashfuncties (hashfunctions)}
+\begin{de}
+Een \textbf{hashfunctie} $f:A\rightarrow B$ beeldt een verzameling $A$ af op een verzameling $B$ waarbij meestal $A$ veel groter is dan $B$.
+\end{de}
+Een goede hashfunctie heeft de volgende eigenschappen.
+\begin{itemize}
+\item Determinisme: De hashfunctie geeft steeds dezelfde uitvoer bij dezelfde invoer.
+\item Uniformiteit: De hashfunctie verspreidt de waarden in haar beeld uniform. Dit zorgt ervoor dat er weinig `botsingen' (collisions) voorvallen.
+\end{itemize}
+
+\section{Bostingen en botsingafhandeling (collision resolution) (intern)}
+\begin{de}
+Gegeven een hashfunctie $f$. We spreken van een \textbf{botsing} van twee sleutels $s_1$ en $s_2$ wanneer ze beide afgebeeld worden op dezelfde hash.
+\[
+f(s_1) = f(s_2)
+\]
+\end{de}
+\subsection{Open adressering (open adressing or closed hashing)}
+Botsingen worden opgelost door aftasting (probing). Indien er geen plaats is in de cel waar een sleutel thuis hoort, tast de cellen dan (deterministisch) af tot er een lege cel gevonden wordt. 
+\begin{figure}[H]
+\centering
+\begin{tabular}{r|l}
+Voordelen & Nadelen\\
+\hline
+Zeer eenvoudig & Zoeken gebeurt lineair (traag)\\
+& Verwijdering wordt ingewikkeld
+\end{tabular}
+\end{figure}
+Het aftasten kan op verschillende manieren gebeuren.
+\begin{itemize}
+\item Lineaire aftasting (linear probing)
+\item Kwadratische aftasting (quadratic probing)
+\item Dubbele hashing (double hashing)
+\end{itemize}
+
+\subsection{Ketening (chaining or closed adressing or open hashing)}
+Botsingen worden opgelost buiten de hoofd-tabel. Elke cel houdt ook een overloop-wijzer bij, naar een eventuele plaats in de overloop-tabel. Wanneer er dan geen plaats is in de hoofdtabel, wordt de nieuwe data in de overloop tabel geplaatst en wordt er een wijzer ernaar opgeslagen op de plaats waar de data had moeten staan volgens de hashfunctie.
+\begin{figure}[H]
+\centering
+\begin{tabular}{r|l}
+Voordelen & Nadelen\\
+\hline
+Opzoeken kan snel gebeuren & Opzoeken via ander sleutelveld wordt moeilijk\\
+Toevoegen en verwijderen is eenvoudig & Doorlopen op sleutelvolgorde wordt traag.
+\end{tabular}
+\end{figure}
+
+\section{Externe hashing (external hashing)}
+Externe hashing wordt gebruikt om het aantal schijftoegangen te minimaliseren. Data kan enkel gelezen worden per blok, niet per bit. We gebruiken deze informatie om specifieke gegevensstructuren te ontwerpen voor dit probleem.
+We verdelen de adresruimte in emmers (buckets), zo groot als een schijf blok. De hashfunctie berekent dus het nummer van een emmer.
+Zoals bij externe hashing wordt er een keten van emmers bijgehouden om botsingen af te handelen. Elke emmer bevat dus een eventuele wijzer naar een overloopemmer.
+Deze strategie heeft dezelfde voor- en nadelen als (interne) ketening. Er komt echter nog een nadeel bij. Deze vorm van hashing vereist een vaste gereserveerde ruimte op de schijf. Maak deze te groot en er is veel lege ruimte, maak deze te klein en er is veel overloop. Er is dus reorganisatie nodig.
+
+\section{Lineaire hashing (linear hashing)}
+Het idee achter lineaire hashing is het hash-bestand dynamisch te laten groeien en krimpen zonder de nood aan een directory. Lineare hashing zorgt er bovendien voor dat de laadfactor ongeveer constant blijft wanneer de structuur groeit.
+
+\subsection{Benamingen}
+Omdat het belangrijk is dat we weten waarover we spreken zijn hier de benamingen voor deze sectie samengevat. Gebruik deze lijst om terug te kijken wanneer u verder leest indien nodig.
+\begin{itemize}
+\item $M$: het aantal emmers in het begin.
+\item $N$: het huidig aantal emmers.
+\item $d$: de diepte van een emmer.
+\item $m_i$: de $i$-de emmer
+\item $h$ en $h'$: de hashfuncties.
+\item $n$: het nummer van de volgende te-splitsen emmer.
+\item $L$: de grens voor de laadfactor.
+\item $l$: de huidige laadfactor.
+\[
+l = \frac{r}{dN}
+\]
+\end{itemize}
+
+\subsection{De hashfuncties}
+Definieer de hash functie $h$ eenvoudigweg als volgt. 
+\[
+h(K) = K\ mod\ M
+\]
+De bits van $K$ worden dus als getal beschouwd om mee te rekenen.
+Definieer bovendien de hash functie $h'$ als volgt.
+\[
+h'(K) = K\ mod\ (2M)
+\]
+
+\subsection{De procedure}
+\subsubsection{initialisatie}
+Begin met een lijst van $M$ emmers en geef elke emmer een diepte $d$. $n$ begint bij $0$. Kies $L$ als bovengrens voor de laadfactor.\footnote{Voor $L$ wordt vaak $0.7$ gekozen.}
+\subsubsection{toevoeging}
+Gegeven een record $r$ met sleutel $k$, voegen we deze in als volgt.
+\begin{enumerate}
+\item Hash de sleutel met hashfunctie $h$ om $h$ te bekomen. $h$ is dus een emmernummer.
+\[
+h = h(k)
+\]
+\item Voeg de record $r$ toe aan de $h$-de emmer $m_h$. (Als $m_h$ vol zit, gebruik dan de overloop.)
+\item Bereken de laadfactor $l$. 
+\item Als de structuur overladen is ($l> L$), ga dan naar stap 5. Als de structuur niet overladen is, stop dan hier.
+\item Maak een nieuwe emmer $m_{n+M}= m_{N}$ op het einde van de lijst.
+\item Splits emmer $m_n$ door alle records in $m_n$ opnieuw te hashen, maar deze keer met hashfunctie $h'$. Alle record die in $m_n$ zaten komen nu ofwel terug in $m_n$ terecht ofwel in de nieuwe emmer $m_{n+M}$
+\item Hoog $n$ op. $M$ blijft onveranderd maar $N$ is wel $1$ groter geworden!
+\item Als $n \ge M$, zet dan $n$ terug op $0$ en verdubbel $M$. Dit gebeurt wanneer de lijst dubbel zo lang is geworden als de originele lijst.
+
+\end{enumerate}
+
+
+\subsubsection{Zoeken}
+\begin{algorithm}
+\eIf{$n=0$}
+{$m \leftarrow h_{j}(K)$}
+{$m \leftarrow h_{j}(K)$\\
+\If{$m>n$}{$m\leftarrow h_{j+1}(K)$}}
+\caption{Zoeken in een lineaire hashstructuur}
+\end{algorithm}
+
+
+\section{Uitbreidbare hashing (extendible hashing)}
+Een vervolg op lineair hashen is uitbreidbaar hashen.
+\subsection{Benamingen}
+\begin{itemize}
+\item $d$ de globale diepte van de index
+\item $d'$ de lokale diepte van een emmer.
+\item $b$: het aantal records er in een emmer gaan.
+\item $M$: Het huidig aantal plaatsen $M = 2^{d}$
+\item $N$: het huidig aantal elementen
+\item $h(k)$: de hashfunctie die de eerste $d$ bits van $k$ neemt.
+\end{itemize}
+
+\subsection{De procedure}
+Gegeven een record $r$ met sleutel $k$. We voegen deze in als volgt.
+\begin{enumerate}
+\item Hash de sleutel $k$ van $r$ tot $h$
+\[
+h = h(k)
+\] 
+\item Kijk in de index bij $h$ en volgt de pointer naar een emmer.
+\item Voeg $r$ (op de juiste plaats, op volgorde) toe aan de emmer die bij $h$ hoort. Gebruik (tijdelijk) overloop indien nodig.
+\item Indien er overloop opgetreden heeft, ga dan naar stap 4. Als er geen overloop heeft opgetreden, stop dan hier.
+\item Splits dan de emmers in twee emmers met een lokale diepte $d'^{*}$ die \'e\'en meer is dan de originele lokale diepte van de emmer.
+\[
+d'^{*} = d^{'} + 1
+\]
+\item Verdeel daarna alle records uit de originele emmer op de juiste manier (volgens de hash) onder de twee nieuwe emmers.
+\item Als de lokale diepte van de nieuwe emmers groter wordt dan de globale diepte van de index, ga dan naar stap 8. Stop anders hier.
+\item Hoog $d$ op, en maak de nieuwe index met de juiste wijzers.
+\end{enumerate}
+\begin{figure}[H]
+\centering
+\begin{tabular}{r|l}
+Voordelen & Nadelen\\
+\hline
+Weinig extra ruimte & \'E\'en extra indirectie\\
+Uitbreiding van cel is goedkoop & Uitbreiding van tabel is duur
+\end{tabular}
+\end{figure}
+
+\section{Dynamisch hashen (dynamic hashing)}
+U voelde het al aankomen, de index uit het deel over uitbreidbaar hashen zou natuurlijk veel beter een boom zijn.
+Indien we de index zouden vervangen door een boom, verandert er niet veel. Vervang in de vorige paragraaf `emmer' door `blad' en `wijzer' in `tak', dan krijgt u al een relatief goede uitleg.
+
+\end{document}
