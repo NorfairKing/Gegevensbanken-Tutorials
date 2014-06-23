@@ -146,6 +146,19 @@ write(B)&\\
 commit&
 \end{tabular}
 \begin{tabular}{c|c}
+\multicolumn{2}{c}{Cascadeloos}\\
+$T_1$&$T_2$\\
+\hline
+read(B)&\\
+write(B)&\\
+& read(A)\\
+&write(A)\\
+&commit\\
+read(A) &\\
+write(A)&\\
+commit&
+\end{tabular}
+\begin{tabular}{c|c}
 \multicolumn{2}{c}{Niet cascadeloos}\\
 $T_1$&$T_2$\\
 \hline
@@ -219,6 +232,48 @@ We kunnen serialiseerbaarheid testen, maar dit geeft nog steeds problemen.
 \item De manier waarop de operaties worden opgevolgd wordt bepaald door het besturingssysteem en is dus niet te voorspellen.
 \item Transacties worden zo aangeboden dat het begin en einde vaak moeilijk te voorspellen is.
 \item Als het rooster niet serialiseerbaar blijkt te zijn is herstel duur.
+\end{itemize}
+
+\section{Concurrentie controle}
+Concurrentie controle dient om voor de serialiseerbaarheid van transacties te zorgen.
+
+\subsection{Twee-fase locking technieken}
+Alle locking gebeurt voor het unlocken.
+\begin{itemize}
+\item Basis: Garandeert serialiseerbaarheid, Mogelijk deadlocks
+\item Conservatief: Lock alles voor de transactie begint. Deadlock vrij.
+\item Strict: Unlock exclusieve locks pas na commit. Garandeert striktheid, Niet Deadlock vrij.
+\item Rigoreus: Unlock alles pas na commit. Garandeert striktheid, Niet Deadlock vrij.
+\end{itemize}
+
+\subsection{Deadlock prevention}
+\subsubsection{Timestamps per transactie}
+\begin{itemize}
+\item Wait-die: Een oudere transactie mag wachten, een jongere transactie wordt afgebroken.
+\item Wound-wait: Een oudere transactie onderbreekt de huidige, en neemt zijn plaats, een jongere transactie mag wachten.
+\end{itemize}
+\subsubsection{Waiting}
+\begin{itemize}
+\item No waiting: een transactie mag nooit wachten, wordt afgebroken, wanneer het een slot niet kan krijgen.
+\item Cautious waiting: een transactie mag alleen wachten op een transactie die zelf niet aan het wachten is.
+\end{itemize}
+
+\subsection{Deadlock detection}
+\begin{itemize}
+\item Wait-for graaf: Bekijk de wait-for graaf regelmatig en check voor deadlocks.
+\item Timouts: Een transactie mag maar een bepaalde hoeveelheid tijd wachten.
+\end{itemize}
+
+\subsection{Timestamp ordering}
+Hiervoor gebruiken we voor elk database-item twee timestamps.
+\begin{itemize}
+\item Read timestamp van $X$: De timestamp van de jongste transactie die $X$ gelezen heeft. 
+\item Write timestamp van $X$: De timestamp van de jongste transactie die naar $X$ geschreven heeft. 
+\end{itemize}
+
+\begin{itemize}
+\item Basis Timestamp ordering: check de juiste timestamp(s) bij lezen/schrijven. Als die timestamp jonger is dan de de transactie wordt de transactie afgebroken en heropgestart met een nieuwe timestamp.
+\item Strict Timestamp ordering: Check opnieuw de juiste timestamp(s), maar een transactie mag wachten tot de vorige wordt gecommit.
 \end{itemize}
 
 \end{document}

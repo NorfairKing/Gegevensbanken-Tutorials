@@ -19,8 +19,10 @@
 \input{titelpagina}
 
 \subfile{voorwoord}
+\begingroup
+\let\clearpage\relax
 \tableofcontents
-\pagebreak
+\endgroup
 
 \subfile{theorie}
 \subfile{generisch}
