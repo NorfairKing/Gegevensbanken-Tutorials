@@ -29,7 +29,7 @@ Gegeven dat het bestand niet geordend is op veld $j$ (met unieke waarden) en we 
 \item Bereken het totaal records op het eerste indexeringsniveau $r_{i_1}$ en het aantal blokken op het eerste indexeringsniveau $b_{i_1}$.
 \item Bereken het totaal aantal niveaus $h$ nodig als we een meervoudige index zouden maken. 
 \item Bereken het totaal aantal records $r_{i_{tot}}$ en het totaal aantal blokken $b_{i_{tot}}$ nodig voor de hele meervoudige index.
-\item Bereken het totaal aantal blok toegangen nodig om een record te vinden.
+\item Bereken het totaal aantal blok toegangen $t$ nodig om een record te vinden.
 \end{itemize}
 
 \item 
@@ -65,6 +65,76 @@ Gegeven dat een bestand is geordend op het veld $j$ met unieke waarden, en we ee
 \end{itemize}
 \end{itemize}
 \subsection*{Antwoord}
-TODO
+We berekenen  \'e\'en voor \'e\'en alle gevraagde waarden.
+\begin{itemize}
+\item Record grootte $R$
+\[
+R = \sum_{k=1}^{i}I_k
+\]
+\item De blocking factor $bfr$
+\[
+bfr = \left\lfloor \frac{B}{R} \right\rfloor
+\]
+\item Index record grootte $R_i$
+\[
+R_{i} = I_{j} + P
+\]
+\item De index blocking factor $bfr_0$ voor het extra niveau van indirectie bij een secundaire index op een niet-uniek-veld en het aantal blokken voor dat niveau $b_{R}$.
+\[
+bfr_0 = \left\lfloor \frac{B}{P_R} \right\rfloor \text{ en } b_{R} = \left\lceil \frac{b}{bfr_R} \right\rceil 
+\]
+\item De index blocking factor $bfr_i = fo$
+\[
+bfr_i = fo = \left\lfloor \frac{B}{R_i} \right\rfloor
+\]
+\item Het aantal records op het eerste index niveau $b_{i_{1}}$
+\[
+b_{i_{1}} = \left\lceil \frac{r_{i_{1}}}{bfr_i}\right\rceil
+\]
+\item Hoogte van een meervoudige index $h$
+\[
+\lceil \log_{fo}(b) \rceil
+\]
+\item Het totaal aantal records in de index
+\[
+r_{i_{tot}} = \sum_{k=1}^{h}\left\lceil\frac{b_{i_k}}{bfr_i}\right\rceil
+\]
+\item Het totaal aantal blokken in de index
+\[
+b_{i_{tot}} = \sum_{k=1}^h\left\lceil \frac{r_{i_{k}}}{bfr_{i_k}} \right\rceil
+\]
+\item Het totaal aantal blok toegangen nodig bij \'e\'en niveau van indexering.
+\[
+t_{one} = \lceil \log_{2}b_{i_{1}} \rceil
+\]
+\item Het totaal aantal blok toegangen nodig bij een meervoudige indexering.
+\[
+t_{multi} = t_{indexeringsniveaus} + t_{indirectie} + t_{datatoegang}
+\]
+\item Ordes van B bomen
+\[
+p_{knoop} P + (p_{knoop} - 1)I_{j} \le B
+\]
+\[
+p_{blad}(P_{R} + I_{j}) \le B
+\]
+\[
+p'_{knoop} P + (p'_{knoop}-1)P_{R} + (p-1)I_{j} \le B
+\]
+\item Samenvatting van de verschillen
+\begin{figure}[H]
+\centering
+\begin{tabular}{r|ccccccccc}
+& $r_{i_{1}}$ & $t_{multi}$\\
+\hline
+primaire index & $b$ & $h+1$\\
+secundaire index (1) & $r$ & $h+1$\\
+secundaire index (2) & $u_j$ & $h+2$\\
+clusterende index & $u_j$ & $h+\left\lceil\frac{u_j}{bfr}\right\rceil$\\
+B+ boom & \\
+B boom & \\
+\end{tabular}
+\end{figure}
+\end{itemize}
 
 \end{document}

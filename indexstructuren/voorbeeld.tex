@@ -4,9 +4,70 @@
 \chapter{Voorbeeld}
 \renewcommand\thesection{V\arabic{section}}
 \renewcommand\thesubsection{V\arabic{section}}
-\section{Vraag}
+\section{Toeganssnelheid}
 \subsection*{Opgave}
+Gegeven een disk met blok grootte $B=1024$ bytes Een wijzer naar een blok heeft grootte $P_{b} = 6$ bytes en een wijzer naar een record heeft grootte $P_{r} = 8$ bytes. Een bestand heeft $100000$ records van vaste grootte $R$. Een record bestaat uit de volgende velden. Er wordt \'e\'en byte gebruikt voor een deletion marker. Het bestand is geordend op $A$. $A$ en $B$ hebben unieke waarden, $C$ niet noodzakelijk.
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c}
+Veld & grootte\\\hline
+$A$ & $8$ bytes\\
+$B$ & $16$ bytes\\
+$C$ & $64$ bytes\\
+\end{tabular}
+\end{figure}
 \subsection*{Antwoord}
-
+De record grootte $R$
+\[
+R = 8 + 16 + 64 = 88
+\]
+De blocking factor $bfr$.
+\[
+bfr = \left\lfloor\frac{1024}{88}\right\rfloor = 11
+\]
+Aantal blokken voor het databastand $b$
+\[
+b = \left\lceil \frac{100000}{11} \right\rceil  = 9091
+\]
+\begin{itemize}
+\item Primaire index op $A$.
+\begin{itemize}
+\item De index record groottes $R_i$ en $R'_i$
+\[
+R_i = I_A + P_r = 8 + 8 = 16 \text{ en } R'_i = I_{A} + P_b = 8 + 6 = 14
+\]
+\item De index blocking factor $bfr_i$ en $bfr'_i$
+\[
+bfr_{i} = \left\lfloor\frac{1024}{16}\right\rfloor = 64 \text{ en }bfr'_{i} = \left\lfloor\frac{1024}{14}\right\rfloor = 73
+\]
+\item Totaal aantal records op het eerste indexeringsniveau $r_{i_{1}}$ en het totaal aantal blokken op dat niveau $b_{i_{1}}$.
+\[
+r_{i_{1}} = b = 9091 \text{ en } b_{i_{1}} = \left\lceil\frac{9091}{64} \right\rceil = 124
+\]
+\item Het totaal aantal niveaus voor een meervoudige index $h$
+\[
+h = \left\lceil \log_{73}b_{i_{1}} \right\rceil +1= 3
+\]
+Inderdaad $b_{i_{2}} = \left\lceil \frac{124}{73} \right\rceil = 2$ en $b_{i_{3}} = 1$.
+\item Het totaal aantal index records $r_{i_{tot}}$ en blokken $b_{i_{tot}}$.
+\[
+r_{i_{tot}} = 9091 + 124 + 2 = 9217 \text{ en } b_{i_{tot}} = 124 + 2 +1
+\]
+\item Het totaal aantal toegangen $t$ nodig om een record te vinden.
+\[
+t_{one} = \lceil \log_{2} 144\rceil + 1 = 8+1 = 9 \text{ en } t_{multi} = 3 + 1 = 4 
+\]
+\end{itemize}
+\item Secundaire index (1) op $B$.
+TODO
+\item Secundaire index (2) op $C$.
+TODO
+\item Clusterende index op $C$. (Stel dat het bestand geordend zou zijn op $C$)
+TODO
+\item B+ boom op $B$.
+TODO
+\item B boom op $B$.
+TODO
+\end{itemize}
 
 \end{document}
