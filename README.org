@@ -1,10 +1,10 @@
 * Gegevensbanken-Tutorials
 Tutorials voor Gegevensbanken [H01O9A]
 ** Inhoud
-   - [[http://intexration.jonasdevlieghere.com:8000/pdf/NorfairKing/Gegevensbanken-Tutorials/normaalvormen][Normaalvormen]]
-   - [[http://intexration.jonasdevlieghere.com:8000/pdf/NorfairKing/Gegevensbanken-Tutorials/transacties][Transacties]]
-   - [[http://intexration.jonasdevlieghere.com:8000/pdf/NorfairKing/Gegevensbanken-Tutorials/hashing][Hashing]]
-   - [[http://intexration.jonasdevlieghere.com:8000/pdf/NorfairKing/Gegevensbanken-Tutorials/indexstructuren][Indexstructuren]]
+   - [[http://intexration.com:/file/NorfairKing/Gegevensbanken-Tutorials/normaalvormen/pdf][Normaalvormen]]
+   - [[http://intexration.com/file/NorfairKing/Gegevensbanken-Tutorials/transacties/pdf][Transacties]]
+   - [[http://intexration.com/file/NorfairKing/Gegevensbanken-Tutorials/hashing/pdf][Hashing]]
+   - [[http://intexration.com/file/NorfairKing/Gegevensbanken-Tutorials/indexstructuren/pdf][Indexstructuren]]
      Oproep: deze is nog niet af, voel u vrij om eraan mee te werken!
 ** PDF
    Omdat niet iedereen zin heeft om de repository te clonen en de pdf zelf te compileren is er InTeXgration toegevoegd aan dit project.

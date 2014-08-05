@@ -1,11 +1,20 @@
-[normaalvormen]
-dir=normaalvormen
-
-[transacties]
-dir=transacties
-
-[hashing]
-dir=hashing
-
-[indexstructuren]
-dir=indexstructuren
+{
+  "documents": [
+    {
+      "name": "hashing",
+      "dir": "/hashing"
+    },
+    {
+      "name": "normaalvormen",
+      "dir": "/normaalvormen"
+    },
+    {
+      "name": "transacties",
+      "dir": "/transacties"
+    },
+    {
+      "name": "indexstructuren",
+      "dir": "/indexstructuren"
+    }
+  ]
+}
