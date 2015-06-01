@@ -6,6 +6,3 @@ Tutorials voor Gegevensbanken [H01O9A]
    - [[http://intexration.com/file/NorfairKing/Gegevensbanken-Tutorials/hashing/pdf][Hashing]]
    - [[http://intexration.com/file/NorfairKing/Gegevensbanken-Tutorials/indexstructuren/pdf][Indexstructuren]]
      Oproep: deze is nog niet af, voel u vrij om eraan mee te werken!
-** PDF
-   Omdat niet iedereen zin heeft om de repository te clonen en de pdf zelf te compileren is er InTeXgration toegevoegd aan dit project.
-   Bedankt, Jonas Devlieghere, voor de toegang!
